@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="utf-8" />
-		<link href="style/style.css" media="screen" rel="stylesheet" />
-		
-		<% if (session == null) { %>
-		
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="css/style.css"/>
 		<title>Kolegia : Frémir de joie d'apprendre</title>
-		
-		<% }else { %>
-		
-		<title>Kolegia : Débriefing</title>
-		
-		<% } %>
 	</head>
 	
 	<body>
-		<%@ include file="header.jsp" %>
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		
 		<section>
-			<% if (session == null) { %>
-			
-			<!-- question du jour -->
-			<%@ include file="question.jsp" %>
-			
-			<% } else { %>
-			
-			<!-- Carte des étoiles -->
-			
-			<%@ include file="carte.jsp" %>
-			<%} %>
-			
-			<!-- Explications -->
-			<h3>Petit tuto</h3>
-			
-			<!-- Diapo ici -->
-			
+			<div id="question">
+				<h3>Le savais-tu?</h3>
+				<p>
+					D'où vient cette tradition de souffler
+					des bougies lors d'un anniversaire ?
+				</p>
+				
+				<p class="bouton_rep">
+					D'un rituel de la Grèce Antique
+				</p>
+				<br/>
+				<p class="bouton_rep">
+					D'une tradition gauloise
+				</p>
+			</div>
 		</section>
+		
+		<%@include file="/WEB-INF/jsp/footer.jsp" %>
 	</body>
 </html>

@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+}
+
+
+header {
+	background-color: rgb(228,108,10);
+	width: 100%;
+	height: 30%;
+	margin: 0px;
+	display: flex;
+	justify-content: space-around;
+}
+
+section {
+	width: auto;
+	margin: auto;
+	width: 50%;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+nav {
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 15px;
+	justify-content: space-between;
+}
+
+.bouton_menu {
+	border: 1px rgb(149,55,53) solid;
+	border-radius: 150px;
+	color: white;
+	padding: 5px;
+	/*Dégradé sur le bouton*/
+	background-color: rgb(192,0,0);
+	margin-right: 5px;
+	margin-left: 5px;
+	user-select: none;
+	box-shadow: 0px 0px 5px black;
+	background: linear-gradient(to bottom right,red 80%,white);
+}
+
+.bouton_menu:hover {
+	background-color: white;
+	color: rgb(192,0,0);
+	border: 1px rgb(192,0,0) solid;
+}
+
+.bouton_menu::selection {
+	background: transparent;
+}
+
+#cble_ins, #cble_connex {display: none;}
+
+#cble_connex:not(:checked)~#popup_connex {display: none;}
+
+/* Mise en forme du formulaire de connexion */
+
+#form_test {
+	position: absolute; /*Nécessaire pour utiliser z-index */
+	right: 150px;
+	top: 9%;
+	z-index: 0; /*Permet d'afficher le formulaire par-dessus le header */
+	background: white;
+	border-radius: 10px;
+	border: 1px black solid;
+	padding: 10px;
+	width: 15%;
+	text-align: center;
+	align-self: flex-end;
+}
+
+
+#form_test input {
+	margin: auto;
+	width: 80%;
+}
+
+#popup_connex {
+	justify-content: center;
+}
+
+
+/* Affichage de la question du jour */
+#question {
+	border: 1px solid black;
+	width: 25%;
+	min-width: 300px;
+	margin: 30px auto 30px auto;
+	background-color: rgba(255,128,64,0.67);
+	padding: 15px;
+}
+
+#question h3 {
+	border-radius: 15px;
+	background-color: red;
+	padding: 10px;
+	margin-bottom: 0;
+}
+
+#question p {
+	background-color: red;
+	color: white;
+	margin-top: 0;
+}
+
+.bouton_rep {
+	background-color: rgb(228,108,10);
+	border-radius: 10px;
+	border: 1px solid black;
+	margin: 1px;
+	padding: 10px;
+}
