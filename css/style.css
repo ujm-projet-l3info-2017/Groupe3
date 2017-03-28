@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 
+/* Elements de base de la page */
 body {
 	background-image: url("../ressources/learn_world.jpg");
 	background-repeat: repeat-x;	
@@ -10,15 +11,40 @@ html, body {
 	margin: 0px;
 }
 
+
+
+/* Style d'en-tete pour toutes les pages contenant un header */
 header {
-	background-color: rgb(228,108,10);
+	background: linear-gradient(to bottom, red, rgb(228,108,10));
+	opacity: 0.94;
 	height: 30%;
 	margin: 0px;
 	display: flex;
 	justify-content: space-around;
 	border-bottom: 1px solid black;
 }
+nav {
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 15px;
+	justify-content: space-between;
+}
 
+
+
+/* Pied de page */
+footer {
+	border: 1px solid black;
+	position: absolute;
+	bottom: 0; left: 0; right: 0;
+	padding: 15px;
+	background-color: rgba(0,0,0,0.8);
+	color: white;
+}
+
+
+
+/* Conteneur de la page */
 section {
 	text-align: center;
 	word-wrap: break-word;
@@ -27,23 +53,9 @@ section {
 	*/
 }
 
-nav {
-	display: flex;
-	align-items: flex-end;
-	margin-bottom: 15px;
-	justify-content: space-between;
-}
-
-footer {
-	border: 1px solid black;
-	position: absolute;
-	bottom: 0; left: 0; right: 0;
-	padding: 15px;
-	background-color: black;
-	color: white;
-}
 
 
+/* Styles de classes */
 .bouton_menu {
 	border: 1px rgb(149,55,53) solid;
 	border-radius: 150px;
@@ -62,12 +74,24 @@ footer {
 	background-color: white;
 	color: rgb(192,0,0);
 	border: 1px rgb(192,0,0) solid;
+	cursor: pointer;
 }
 
 .bouton_menu::selection {
 	background: transparent;
 }
 
+.bouton_rep {
+	background-color: rgb(228,108,10);
+	border-radius: 10px;
+	border: 1px solid black;
+	margin: 1px;
+	padding: 10px;
+}
+
+
+
+/* Styles personnalises */
 #cble_ins, #cble_connex {display: none;}
 
 #cble_connex:not(:checked)~#popup_connex {display: none;}
@@ -122,10 +146,7 @@ footer {
 	margin-top: 0;
 }
 
-.bouton_rep {
-	background-color: rgb(228,108,10);
-	border-radius: 10px;
-	border: 1px solid black;
-	margin: 1px;
-	padding: 10px;
+#bouton_ins {
+	text-decoration: none;
+	margin: 0;
 }

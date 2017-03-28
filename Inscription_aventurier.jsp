@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form id = "inscription_form1" method = "post" action = "<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id = "inscription_form1" method = "post" action = "">
 	<p><label for = "pseudo">Pseudo *:</label> <input type = "text" name = "pseudo" id = "pseudo" />
 
 	<p><label for = "prenom">prenom *:</label> <input type = "text" name = "prenom" id = "prenom" required/></p>
