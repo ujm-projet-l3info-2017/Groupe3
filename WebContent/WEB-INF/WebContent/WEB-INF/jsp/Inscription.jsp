@@ -43,12 +43,12 @@
 	<script type="text/javascript">
 	    function redirect_aventurier()
 	    {
-	    var url = "/inscription_aventurier";
+	    var url = "inscription_aventurier";
 	    window.location.assign(url);
 	    }
 	    function redirect_maitre()
 	    {
-	    var url = "/inscription_maitre";
+	    var url = "inscription_maitre";
 	    window.location.assign(url);
 	    }
 	</script>
