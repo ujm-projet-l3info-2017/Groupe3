@@ -13,7 +13,7 @@
 		<h1>KOLEGIA</h1>
 	</div>
 
-	<nav> <a href="Inscription.jsp" class="bouton_menu"
+	<nav> <a href="inscription" class="bouton_menu"
 		id="bouton_ins">Inscription</a> <label for="cble_connex"
 		class="bouton_menu">Connexion</label> <input id="cble_connex"
 		type="checkbox" />
