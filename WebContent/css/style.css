@@ -146,7 +146,7 @@ section {
 	margin-top: 0;
 }
 
-#bouton_ins {
+#bouton_ins,#bouton_connex {
 	text-decoration: none;
 	margin: 0;
 }

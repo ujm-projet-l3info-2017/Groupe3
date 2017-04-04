@@ -7,24 +7,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tut.beans.Utilisateur;
-import com.tut.forms.FormMaitre;
+import com.tut.forms.ConnexionForm;
 
 /**
- * Servlet implementation class InscriptionMaitre
+ * Servlet implementation class Connexion
  */
-@WebServlet("/inscription_maitre")
-public class InscriptionMaitre extends HttpServlet {
+@WebServlet("/connexion")
+public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/jsp/Inscription_maitre.jsp";
-	public static final String ATT_FORM = "form";
+	public static final String VUE = "/WEB-INF/jsp/connexion.jsp";
+	public static final String ATT_USER_SESSION = "sessionUtilisateur";
 	public static final String ATT_USER = "utilisateur";
+	public static final String ATT_FORM = "form";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InscriptionMaitre() {
+    public Connexion() {
         super();
     }
 
@@ -39,14 +41,22 @@ public class InscriptionMaitre extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FormMaitre form = new FormMaitre();
+		ConnexionForm form = new ConnexionForm();
 		
-		Utilisateur utilisateur = form.inscrireUtilisateur(request);
+		Utilisateur utilisateur = form.connecterUtilisateur(request);
+		
+		HttpSession session = request.getSession();
+		
+		if (form.getErreurs().isEmpty())
+			session.setAttribute(ATT_USER_SESSION, utilisateur);
+		else
+			session.setAttribute(ATT_USER_SESSION, null);
 		
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
 		
-		this.getServletContext().getRequestDispatcher( VUE ).forward(request, response);
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
 	}
 
 }

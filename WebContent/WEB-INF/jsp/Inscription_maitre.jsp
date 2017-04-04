@@ -80,7 +80,7 @@
 		<button type="submit" class="sansLabel">M'inscrire</button>
 	</p>
 	
-	<span class="${ empty erreurs ? 'succes' : 'echec' }">${ form.resultat }</span>
+	<span class="${ empty form.erreurs ? 'succes' : 'erreur' }">${ form.resultat }</span>
 </form>
 
 </body>

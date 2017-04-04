@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.tut.beans.Utilisateur;
 
-public class FormInscriptionAventurier {
-	private static final String CHAMP_NOM="nom";
-	private static final String CHAMP_PRENOM="prenom";
-	private static final String CHAMP_PSEUDO="pseudo";
-	private static final String CHAMP_EMAIL="mail";
-	private static final String CHAMP_PASS="passe";
-	private static final String CHAMP_CONF="passe_con";
-	private static final String CHAMP_NIV="niveau";
-	private static final String CHAMP_DEP="departement";
-	private static final String CHAMP_COLL="college";
+public class FormInscription {
+	protected static final String CHAMP_NOM="nom";
+	protected static final String CHAMP_PRENOM="prenom";
+	protected static final String CHAMP_PSEUDO="pseudo";
+	protected static final String CHAMP_EMAIL="mail";
+	protected static final String CHAMP_PASS="passe";
+	protected static final String CHAMP_CONF="passe_con";
+	protected static final String CHAMP_NIV="niveau";
+	protected static final String CHAMP_DEP="departement";
+	protected static final String CHAMP_COLL="college";
 	
-	private String resultat;
-	private Map<String, String> erreurs = new HashMap<>();
+	protected String resultat;
+	protected Map<String, String> erreurs = new HashMap<>();
 	
 	
 	public String getResultat() {
@@ -40,7 +40,7 @@ public class FormInscriptionAventurier {
 		String email = getValeurChamp(request, CHAMP_EMAIL );
 		String nom = getValeurChamp(request, CHAMP_NOM);
 		String prenom = getValeurChamp(request, CHAMP_PRENOM);
-		String pseudo = getValeurChamp(request, CHAMP_PSEUDO);
+		String pseudo = getValeurChamp(request, CHAMP_PSEUDO).replaceAll(" ", "");
 		String departement = getValeurChamp(request, CHAMP_DEP);
 		String college = getValeurChamp(request, CHAMP_COLL);
 		String mdp = getValeurChamp(request, CHAMP_PASS);
@@ -115,6 +115,8 @@ public class FormInscriptionAventurier {
 	private void validationPseudo(String pseudo) throws Exception {
 		if (pseudo != null && pseudo.length() < 3)
 			throw new Exception("Le pseudo doit faire 3 caractères minimum");
+		else if (pseudo == null)
+			throw new Exception("Merci de saisir un pseudo.");
 		
 	}
 	private void validationEmail(String email) throws Exception {
@@ -147,6 +149,7 @@ public class FormInscriptionAventurier {
 		
 	}
 	
+	/* Renvoie une version sans espaces du paramètre 'nomChamp' */
 	public String getValeurChamp(HttpServletRequest request, String nomChamp) {
 		String valeur = request.getParameter( nomChamp );
 		if ( valeur == null || valeur.trim().length() == 0 )

@@ -10,6 +10,7 @@ public class Utilisateur {
 	private String college;
 	private String matiere;
 	private String motDePasse;
+	private String identifiant; //pseudo ou mail pour se connecter
 	
 	public String getNom() {
 		return nom;
@@ -64,6 +65,12 @@ public class Utilisateur {
 	}
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
+	}
+	public String getIdentifiant() {
+		return identifiant;
+	}
+	public void setIdentifiant(String identifiant) {
+		this.identifiant = identifiant;
 	}
 	
 }

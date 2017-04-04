@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tut.beans.Utilisateur;
-import com.tut.forms.FormInscriptionAventurier;
+import com.tut.forms.FormInscription;
 
 /**
  * Servlet implementation class InscriptionAventurier
@@ -38,7 +38,7 @@ public class InscriptionAventurier extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FormInscriptionAventurier form = new FormInscriptionAventurier();
+		FormInscription form = new FormInscription();
 		
 		Utilisateur utilisateur = form.inscrireUtilisateur(request);
 		
