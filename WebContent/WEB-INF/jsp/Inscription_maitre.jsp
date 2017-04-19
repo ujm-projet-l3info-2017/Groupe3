@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <link rel="stylesheet" href="css/inscription.css" />
+
+
 <title>Maitre de Guilde</title>
 </head>
 <h1>Qui êtes-vous Maitre ?</h1>
@@ -25,14 +27,14 @@
 	</p>
 
 	<p>
-		<label for="prenom">Prénom <span class="requis">*</span></label> <input
+		<label for="prenom">Prénom</label> <input
 			type="text" name="prenom" id="prenom"
 			value="<c:out value="${ utilisateur.prenom }" />" size="20"
 			maxlength="60" /> <span class="erreur">${ form.erreurs['prenom'] }</span>
 	</p>
 
 	<p>
-		<label for="nom">Nom <span class="requis">*</span></label> <input
+		<label for="nom">Nom</label> <input
 			type="text" name="nom" id="nom"
 			value="<c:out value="${ utilisateur.nom }" />" size="20"
 			maxlength="60" /> <span class="erreur">${ form.erreurs['nom'] }</span>
@@ -51,10 +53,16 @@
 	</p>
 
 	<p>
-		<label for="niveau">Niveau <span class="requis">*</span></label> <input
-			type="text" name="niveau" id="niveau"
-			value="<c:out value="${ utilisateur.niveau }" />" size="20"
-			maxlength="60" />
+		<label for="niveau">Niveau</label>
+		<select name="niveau" id="niveau">
+			<option value="6">6ème</option>
+			<option value="5">5ème</option>
+			<option value="4">4ème</option>
+			<option value="3">3ème</option>
+			<option value="2">2nde</option>
+			<option value="1">1ère</option>
+			<option value="tle">Terminale</option>
+		</select>
 	</p>
 
 	<p>
