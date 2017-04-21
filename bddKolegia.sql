@@ -26,11 +26,10 @@ DROP TABLE IF EXISTS EquipementBonus;
 DROP TABLE IF EXISTS EnInventaire;
 
 DROP TABLE IF EXISTS GuildePrincipale;
---DROP TABLE IF EXISTS GuildeSecondaire;
 
 
 CREATE TABLE Utilisateurs (
-idUser INT ( 12 ) NOT NULL AUTO_INCREMENT ,
+idUser INT UNSIGNED NOT NULL AUTO_INCREMENT ,
 email VARCHAR ( 64 ) NOT NULL,
 pseudo VARCHAR ( 60 ) NOT NULL,
 prenom VARCHAR ( 32 ) NOT NULL,
@@ -48,7 +47,7 @@ UNIQUE ( pseudo )
 ENGINE=InnoDB;
 
 CREATE TABLE Aventuriers (
-idAventurier INT ( 12 ),
+idAventurier INT UNSIGNED,
 lvl INT UNSIGNED NOT NULL,
 expTotale INT UNSIGNED NOT NULL,
 gold INT UNSIGNED NOT NULL,
@@ -71,7 +70,7 @@ FOREIGN KEY ( idAventurier )
 ENGINE=InnoDB;
 
 CREATE TABLE Maitres (
-idMaitre INT ( 12 )	,
+idMaitre INT UNSIGNED,
 enseignement VARCHAR ( 32 ) NOT NULL,
 lvl INT UNSIGNED NOT NULL,
 PRIMARY KEY ( idMaitre ),
@@ -82,17 +81,17 @@ FOREIGN KEY ( idMaitre )
 ENGINE=InnoDB;
 
 CREATE TABLE Questions (
-idQuestion INT ( 12 ) NOT NULL AUTO_INCREMENT,
+idQuestion INT UNSIGNED NOT NULL AUTO_INCREMENT,
 matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
 niveauDifficulte ENUM('Lapin','Gnome','Gobelin','Orc','Dragon','Démon'),
 typeExo ENUM('QCM','Résultat','Texte à trou','Dessin'),
-PRIMARY KEY ( idQuestion ),
+PRIMARY KEY ( idQuestion )
 )
 ENGINE=InnoDB;
 
 CREATE TABLE CreationQuestion (
-idQuestion INT ( 12 ),
-idCreateur int ( 12 ),
+idQuestion INT UNSIGNED,
+idCreateur INT UNSIGNED,
 dateCreation DATETIME NOT NULL,
 PRIMARY KEY ( idQuestion, idCreateur, dateCreation),
 FOREIGN KEY ( idQuestion )
@@ -105,51 +104,50 @@ FOREIGN KEY ( idCreateur )
 ENGINE=InnoDB;
 
 CREATE TABLE Exercices (
-idExo INT ( 24 )  NOT NULL AUTO_INCREMENT,
+idExo INT UNSIGNED NOT NULL AUTO_INCREMENT,
 titreExo VARCHAR( 64 ) NOT NULL,
 matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
 PRIMARY KEY ( idExo )
 )
 ENGINE=InnoDB;
 
+
 CREATE TABLE AssemblageExos (
-idExo INT ( 24 ),
-idAssembleur INT ( 12 ),
+idAssemble INT UNSIGNED NOT NULL,
+idAssembleur INT UNSIGNED NOT NULL,
 dateAssemblement DATETIME NOT NULL,
-PRIMARY KEY ( idExo, idAssembleur, dateAssemblement ),
-FOREIGN KEY ( idExo )
+PRIMARY KEY ( idAssemble, idAssembleur, dateAssemblement ),
+FOREIGN KEY ( idAssemble )
 	REFERENCES Exercices( idExo )
-	ON DELETE SET NULL,
+	ON DELETE CASCADE,
 FOREIGN KEY ( idAssembleur )
 	REFERENCES Maitres( idMaitre )
-	ON DELETE SET NULL
 )
 ENGINE=InnoDB;
 
+
+
 CREATE TABLE CorrectionMaitre (
-idEleve INT ( 12 ),
-noteAttribuee INT ( 12 ) NOT NULL,
+idEleve INT UNSIGNED,
+noteAttribuee INT UNSIGNED NOT NULL,
 commentaire VARCHAR ( 64 ),
-idExo INT ( 12 ),
-idMaitre INT ( 12 ),
+idExo INT UNSIGNED,
+idMaitre INT UNSIGNED,
 dateCorrection DATETIME NOT NULL,
 PRIMARY KEY ( idEleve, idExo, idMaitre, dateCorrection ),
 FOREIGN KEY ( idEleve )
-	REFERENCES Aventuriers( idAventurier )
-	ON DELETE SET NULL,
+	REFERENCES Aventuriers( idAventurier ),
 FOREIGN KEY ( idExo )
-	REFERENCES Exercices( idExo )
-	ON DELETE SET NULL?
+	REFERENCES Exercices( idExo ),
 FOREIGN KEY ( idMaitre )
 	REFERENCES Maitres( idMaitre )
-	ON DELETE SET NULL
 )
 ENGINE=InnoDB;
 
 CREATE TABLE ContenuExercice ( 
-numeroQ INT ( 12 ) NOT NULL,
-idExo INT ( 12 ),
-idQuestion INT ( 12 ),
+numeroQ INT UNSIGNED NOT NULL,
+idExo INT UNSIGNED,
+idQuestion INT UNSIGNED,
 PRIMARY KEY ( idExo, idQuestion, numeroQ ),
 FOREIGN KEY ( idExo )
 	REFERENCES Exercices( idExo )
@@ -160,8 +158,8 @@ FOREIGN KEY ( idQuestion )
 ENGINE=InnoDB;
 
 CREATE TABLE Reponses (
-idReponse INT ( 12 )  NOT NULL AUTO_INCREMENT,
-idQuestion INT ( 12 ),
+idReponse INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+idQuestion INT UNSIGNED,
 texteReponse VARCHAR ( 64 ) NOT NULL,
 statutReponse ENUM('valide','invalide'),
 PRIMARY KEY ( idReponse ),
@@ -172,15 +170,15 @@ FOREIGN KEY ( idQuestion )
 ENGINE=InnoDB;
 
 CREATE TABLE Tags (
-idTag INT ( 12 )  NOT NULL AUTO_INCREMENT,
+idTag INT UNSIGNED  NOT NULL AUTO_INCREMENT,
 intituleTag VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idTag )
 )
 ENGINE=InnoDB;
 
 CREATE TABLE Labelisation (
-idQuestion INT ( 12 ),
-idTag INT ( 12 )
+idQuestion INT UNSIGNED,
+idTag INT UNSIGNED,
 PRIMARY KEY ( idQuestion, idTag ),
 FOREIGN KEY ( idQuestion )
 	REFERENCES Questions( idQuestion ),
@@ -190,15 +188,15 @@ FOREIGN KEY ( idTag )
 ENGINE=InnoDB;
 
 CREATE TABLE Resolution (
-idResolveur INT ( 12 ),
-idExo INT ( 12 ),
+idResolveur INT UNSIGNED,
+idExo INT UNSIGNED,
 dateResolution DATETIME NOT NULL,
-noteAutomatique INT ( 12 ) NOT NULL,
-nbCatTF INT ( 12 ), -- catégorie très facile
-nbCatF INT ( 12 ),	-- catégorie facile
-nbCatN INT ( 12 ),	-- catégorie normale
-nbCatM INT ( 12 ),	-- catégorie moyenne
-nbCatD INT ( 12 ),	-- catégorie difficile
+noteAutomatique INT UNSIGNED NOT NULL,
+nbCatTF INT UNSIGNED, -- catégorie très facile
+nbCatF INT UNSIGNED,	-- catégorie facile
+nbCatN INT UNSIGNED,	-- catégorie normale
+nbCatM INT UNSIGNED,	-- catégorie moyenne
+nbCatD INT UNSIGNED,	-- catégorie difficile
 PRIMARY KEY ( idResolveur, idExo, dateResolution ),
 FOREIGN KEY ( idResolveur )
 	REFERENCES Aventuriers( idAventurier )
@@ -210,7 +208,7 @@ FOREIGN KEY ( idExo )
 ENGINE=InnoDB;
 
 CREATE TABLE Accomplissements (
-idAccomplissements INT ( 12 ) AUTO_INCREMENT,
+idAccomplissements INT UNSIGNED AUTO_INCREMENT,
 intituleAccomp VARCHAR ( 64 ) NOT NULL,
 categorieA VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idAccomplissements )
@@ -218,8 +216,8 @@ PRIMARY KEY ( idAccomplissements )
 ENGINE=InnoDB;
 
 CREATE TABLE AvoirAcompli (
-idHero INT ( 12 ),
-idAccomplissements INT ( 12 ),
+idHero INT UNSIGNED,
+idAccomplissements INT UNSIGNED,
 dateAccomplissement DATETIME NOT NULL,
 PRIMARY KEY ( idHero, idAccomplissements, dateAccomplissement ),
 FOREIGN KEY ( idHero )
@@ -232,7 +230,7 @@ FOREIGN KEY ( idAccomplissements )
 ENGINE=InnoDB;
 
 CREATE TABLE EquipementBonus (
-idEB INT ( 12 ) AUTO_INCREMENT,
+idEB INT UNSIGNED AUTO_INCREMENT,
 intituleEB VARCHAR ( 64 ) NOT NULL,
 categorieEB VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idEB )
@@ -240,9 +238,9 @@ PRIMARY KEY ( idEB )
 ENGINE=InnoDB;
 
 CREATE TABLE EnInventaire (
-idProprio INT ( 12 ),
-idObjet INT ( 12 ),
-limiteUsage INT ( 12 ) NOT NULL,
+idProprio INT UNSIGNED,
+idObjet INT UNSIGNED,
+limiteUsage INT NOT NULL,
 PRIMARY KEY ( idProprio, idObjet, limiteUsage ),
 FOREIGN KEY ( idProprio )
 	REFERENCES Aventuriers( idAventurier )
@@ -254,8 +252,8 @@ FOREIGN KEY ( idObjet )
 ENGINE=InnoDB;
 
 CREATE TABLE GuildePrincipale (
-idGuildeP INT ( 12 ) AUTO_INCREMENT,
-idMaitre INT ( 12 ),
+idGuildeP INT UNSIGNED AUTO_INCREMENT,
+idMaitre INT UNSIGNED,
 nomGuilde VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idMaitre ),
 FOREIGN KEY ( idMaitre )
@@ -265,8 +263,8 @@ FOREIGN KEY ( idMaitre )
 ENGINE=InnoDB;
 
 CREATE TABLE MembreGuildeP (
-idGuildeP INT ( 12 ),
-idHero INT ( 12 ),
+idGuildeP INT UNSIGNED,
+idHero INT UNSIGNED,
 dateAdhesion DATETIME NOT NULL,
 rang VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idHero, dateAdhesion ),
@@ -274,7 +272,6 @@ FOREIGN KEY ( idGuildeP )
 	REFERENCES GuildePrincipale( idGuildeP )
 	ON DELETE CASCADE,
 FOREIGN KEY ( idHero )
-	REFERENCES Aventuriers( idHero )
-	ON DELETE SET NULL
+	REFERENCES Aventuriers( idAventurier )
 )
 ENGINE=InnoDB;
