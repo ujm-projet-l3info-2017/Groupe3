@@ -1,4 +1,4 @@
-package Servlets;
+package com.tut.servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -66,9 +66,9 @@ public class confirmationInsAventurier extends HttpServlet {
 		     	erreurs.put(PSEUDO, e.getMessage() );
 		     }
 	        if ( erreurs.isEmpty() ) {
-	            resultat = "inscription résussie";
+	            resultat = "inscription rÃ©sussie";
 	        } else {
-	            resultat = "Échec d'inscription.";
+	            resultat = "Ã©chec d'inscription.";
 	        }  
 	        request.setAttribute( ATT_ERREURS, erreurs );
 	        request.setAttribute( ATT_RESULTAT, resultat );
@@ -79,7 +79,7 @@ public class confirmationInsAventurier extends HttpServlet {
 
 	private void validPseudo(String nom) throws Exception{
 		if ( nom != null && nom.trim().length() < 3 ) {
-	        throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
+	        throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractï¿½res." );
 	    }
 		
 	}
@@ -87,9 +87,9 @@ public class confirmationInsAventurier extends HttpServlet {
 	private void validPasse(String motDePasse, String confirmation)throws Exception {
 		if (motDePasse != null && motDePasse.length() != 0 && confirmation != null && confirmation.length() != 0) {
 	        if (!motDePasse.equals(confirmation)) {
-	            throw new Exception("Les mots de passe entrés sont différents");
+	            throw new Exception("Les mots de passe entrï¿½s sont diffï¿½rents");
 	        } else if (motDePasse.length() < 6) {
-	            throw new Exception("Les mots de passe doivent contenir au moins 6 caractères.");
+	            throw new Exception("Les mots de passe doivent contenir au moins 6 caractï¿½res.");
 	        }
 	    } else {
 	        throw new Exception("Veuillez saisir et confirmer votre mot de passe.");

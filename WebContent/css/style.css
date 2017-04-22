@@ -4,6 +4,8 @@
 body {
 	background-image: url("../ressources/learn_world.jpg");
 	background-repeat: repeat-x;	
+	overflow:auto;
+	
 }
 
 html, body {
@@ -40,9 +42,8 @@ footer {
 	padding: 15px;
 	background-color: rgba(0,0,0,0.8);
 	color: white;
+	text-align : center;
 }
-
-
 
 /* Conteneur de la page */
 section {
@@ -106,6 +107,8 @@ section {
 #cble_connex:not(:checked)~#popup_connex {display: none;}
 
 /* Mise en forme du formulaire de connexion */
+
+
 
 #form_test {
 	position: absolute; /*Nécessaire pour utiliser z-index */
