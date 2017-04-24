@@ -5,7 +5,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
+
 import com.tut.beans.Utilisateur;
+import com.tut.dao.DAOException;
+import com.tut.dao.UtilisateurDAO;
 
 public class FormInscription {
 	protected static final String CHAMP_NOM="nom";
@@ -18,8 +22,18 @@ public class FormInscription {
 	protected static final String CHAMP_DEP="departement";
 	protected static final String CHAMP_COLL="college";
 	
+	private static final String ALGO_CHIFFREMENT = "SHA-256";
+	
+	private UtilisateurDAO utilisateurDao;
+	
 	protected String resultat;
 	protected Map<String, String> erreurs = new HashMap<>();
+	
+	
+	
+	public FormInscription(UtilisateurDAO utilisateurDao) {
+		this.utilisateurDao = utilisateurDao;
+	}
 	
 	
 	public String getResultat() {
@@ -50,62 +64,113 @@ public class FormInscription {
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try {
-			validationNom( nom );
-		} catch (Exception e) {
-			setErreur(CHAMP_NOM, e.getMessage());
-		}
-		utilisateur.setNom(nom);
-		
-		try {
-			validationPrenom( prenom );
-		} catch (Exception e) {
-			setErreur(CHAMP_PRENOM, e.getMessage());
-		}
-		utilisateur.setPrenom(prenom);
-		
-		try {
-			validationEmail( email );
-		} catch (Exception e) {
-			setErreur(CHAMP_EMAIL, e.getMessage());
-		}
-		utilisateur.setEmail(email);
-		
-		try {
-			validationPseudo( pseudo );
-		} catch (Exception e) {
-			setErreur(CHAMP_PSEUDO, e.getMessage());
-		}
-		utilisateur.setPseudo(pseudo);
-		
-		try {
-			validationMotsDePasse(mdp, conf);
-		} catch (Exception e) {
-			setErreur(CHAMP_PASS, e.getMessage());
-		}
-		utilisateur.setMotDePasse(mdp);
-		
-		utilisateur.setCollege(college);
-		utilisateur.setDepartement(departement);
-		utilisateur.setNiveau(niveau);
-		
-		
-		if ( erreurs.isEmpty() ) {
-			resultat = "Succès de l'inscription";
-		} else {
-			resultat = "Echec de l'inscription";
+			traiterNom(nom, utilisateur);
+			
+			traiterPrenom(prenom, utilisateur);
+			
+			traiterEmail(email, utilisateur);
+			
+			traiterPseudo(pseudo, utilisateur);
+			
+			traiterMotsDePasse(mdp, conf, utilisateur);
+			
+			utilisateur.setCollege(college);
+			utilisateur.setDpt(departement);
+			utilisateur.setNiveau(niveau);;
+			
+			utilisateur.setTypeUser((String) request.getAttribute("type"));
+			
+			
+			if ( erreurs.isEmpty() ) {
+				utilisateurDao.creer(utilisateur);
+				resultat = "SuccÃ¨s de l'inscription";
+			} else {
+				resultat = "Echec de l'inscription";
+			}
+		} catch (DAOException e) {
+			resultat = "Echec lors de l'inscription : une erreur imprÃ©vue est survenue";
+			e.printStackTrace();
 		}
 		
 		
 		return utilisateur;
 		
 	}
+
+
+	private void traiterMotsDePasse(String mdp, String conf, Utilisateur utilisateur) {
+		try {
+			validationMotsDePasse(mdp, conf);
+		} catch (Exception e) {
+			setErreur(CHAMP_PASS, e.getMessage());
+		}
+		
+		
+		/*
+		 * Utilisation de la bibliothï¿½que Jasypt pour chiffrer le mot de passe
+		 * efficacement.
+		 * 
+		 * L'algorithme SHA-256 est ici utilisï¿½, avec par dï¿½faut un salage
+		 * alï¿½atoire et un grand nombre d'itï¿½rations de la fonction de hashage.
+		 * 
+		 * La String retournï¿½e est de longueur 56 et contient le hash en Base64
+		 */
+		
+		ConfigurablePasswordEncryptor passwordEncryptor = new ConfigurablePasswordEncryptor();
+		passwordEncryptor.setAlgorithm(ALGO_CHIFFREMENT);
+		passwordEncryptor.setPlainDigest(false);
+		String motDePasseChiffre = passwordEncryptor.encryptPassword(mdp);
+		
+		
+		utilisateur.setMotDePasse(motDePasseChiffre);
+	}
+
+
+	private void traiterPseudo(String pseudo, Utilisateur utilisateur) {
+		try {
+			validationPseudo( pseudo );
+		} catch (Exception e) {
+			setErreur(CHAMP_PSEUDO, e.getMessage());
+		}
+		utilisateur.setPseudo(pseudo);
+	}
+
+
+	private void traiterEmail(String email, Utilisateur utilisateur) {
+		try {
+			validationEmail( email );
+		} catch (Exception e) {
+			setErreur(CHAMP_EMAIL, e.getMessage());
+		}
+		utilisateur.setEmail(email);
+	}
+
+
+	private void traiterPrenom(String prenom, Utilisateur utilisateur) {
+		try {
+			validationPrenom( prenom );
+		} catch (Exception e) {
+			setErreur(CHAMP_PRENOM, e.getMessage());
+		}
+		utilisateur.setPrenom(prenom);
+	}
+
+
+	private void traiterNom(String nom, Utilisateur utilisateur) {
+		try {
+			validationNom( nom );
+		} catch (Exception e) {
+			setErreur(CHAMP_NOM, e.getMessage());
+		}
+		utilisateur.setNom(nom);
+	}
 	
 	private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
 		if ( motDePasse != null && confirmation != null ) {
 	        if ( !motDePasse.equals( confirmation ) ) {
-	            throw new Exception( "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
+	            throw new Exception( "Les mots de passe entrï¿½s sont diffï¿½rents, merci de les saisir ï¿½ nouveau." );
 	        } else if ( motDePasse.length() < 3 ) {
-	            throw new Exception( "Les mots de passe doivent contenir au moins 3 caractères." );
+	            throw new Exception( "Les mots de passe doivent contenir au moins 3 caractï¿½res." );
 	        }
 	    } else {
 	        throw new Exception( "Merci de saisir et confirmer votre mot de passe." );
@@ -114,7 +179,7 @@ public class FormInscription {
 	}
 	private void validationPseudo(String pseudo) throws Exception {
 		if (pseudo != null && pseudo.length() < 3)
-			throw new Exception("Le pseudo doit faire 3 caractères minimum");
+			throw new Exception("Le pseudo doit faire 3 caractï¿½res minimum");
 		else if (pseudo == null)
 			throw new Exception("Merci de saisir un pseudo.");
 		
@@ -123,6 +188,8 @@ public class FormInscription {
 		if ( email != null ) {
 	        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
 	            throw new Exception( "Merci de saisir une adresse mail valide." );
+	        } else if (utilisateurDao.trouver(email) != null) {
+	        	throw new Exception( "Cette adresse mail est dÃ©jÃ  utilisÃ©e, merci d'en choisir une autre." );
 	        }
 	    } else {
 	        throw new Exception( "Merci de saisir une adresse mail." );
@@ -131,14 +198,14 @@ public class FormInscription {
 	}
 	private void validationPrenom(String prenom) throws Exception {
 		if (prenom != null && prenom.length() < 3)
-			throw new Exception("Les prénoms doivent faire 3 caractères minimum.");
+			throw new Exception("Les prï¿½noms doivent faire 3 caractï¿½res minimum.");
 		else if (prenom == null)
-			throw new Exception("Merci de renseigner votre prénom.");
+			throw new Exception("Merci de renseigner votre prï¿½nom.");
 		
 	}
 	private void validationNom(String nom) throws Exception {
 		if (nom != null && nom.length() < 3)
-			throw new Exception("Les noms doivent faire 3 caractères minimum.");
+			throw new Exception("Les noms doivent faire 3 caractï¿½res minimum.");
 		else if (nom == null)
 			throw new Exception("Merci de renseigner votre nom.");
 		
@@ -149,7 +216,7 @@ public class FormInscription {
 		
 	}
 	
-	/* Renvoie une version sans espaces du paramètre 'nomChamp' */
+	/* Renvoie une version sans espaces du paramï¿½tre 'nomChamp' */
 	public String getValeurChamp(HttpServletRequest request, String nomChamp) {
 		String valeur = request.getParameter( nomChamp );
 		if ( valeur == null || valeur.trim().length() == 0 )
