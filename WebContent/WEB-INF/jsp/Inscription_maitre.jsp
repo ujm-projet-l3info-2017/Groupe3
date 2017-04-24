@@ -1,93 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<link rel="stylesheet" href="css/inscription.css" />
+
+
+<title>Maitre de Guilde</title>
+</head>
+<h1>Qui Ãªtes-vous Maitre ?</h1>
+<form id="inscription_form2" method="post" action="inscription_maitre">
+
+	<fieldset id="zone_obligatoire">
+		<legend>Obligatoire</legend>
+		<p>
+			<label for="pseudo">Pseudo <span class="requis">*</span></label> <input
+				type="text" name="pseudo" id="pseudo"
+				value="<c:out value="${ utilisateur.pseudo }" />" size="20"
+				maxlength="60" /> <span class="erreur">${ form.erreurs['pseudo'] }</span>
+		</p>
 	
-	<jsp:include page="header.jsp">
-		<jsp:param value="Kolegia : Deviens un Guide !" name="nom"/>
-	</jsp:include>
+		<p>
+			<label for="mail">Email <span class="requis">*</span></label> <input
+				type="text" name="mail" id="mail"
+				value="<c:out value="${ utilisateur.email }" />" size="20"
+				maxlength="60" /> <span class="erreur">${ form.erreurs['mail'] }</span>
+		</p>
+		
+		<p>
+			<label for="passe">Mot de passe <span class="requis">*</span></label>
+			<input type="password" name="passe" id="passe" size="20"
+				maxlength="60" /> <span class="erreur">${ form.erreurs['passe'] }</span>
+		</p>
 	
-	<link rel="stylesheet" href="css/inscription.css" />	
-	<section>
-		<h1>Prêt à guider vos Aventuriers ?</h1>
-		<form id="inscription_form2" method="post" action="inscription_maitre">
-			<fieldset> 
-				<p>
-					<label for="pseudo">Pseudo <span class="requis">*</span></label> <input
-						type="text" name="pseudo" id="pseudo"
-						value="<c:out value="${ utilisateur.pseudo }" />" size="20"
-						maxlength="60" /> <span class="erreur">${ form.erreurs['pseudo'] }</span>
-				</p>
-			
-				<p>
-					<label for="mail">Email <span class="requis">*</span></label> <input
-						type="text" name="mail" id="mail"
-						value="<c:out value="${ utilisateur.email }" />" size="20"
-						maxlength="60" /> <span class="erreur">${ form.erreurs['mail'] }</span>
-				</p>
-			
-				<p>
-					<label for="prenom">Prénom</label> <input
-						type="text" name="prenom" id="prenom"
-						value="<c:out value="${ utilisateur.prenom }" />" size="20"
-						maxlength="60" /> <span class="erreur">${ form.erreurs['prenom'] }</span>
-				</p>
-			
-				<p>
-					<label for="nom">Nom</label> <input
-						type="text" name="nom" id="nom"
-						value="<c:out value="${ utilisateur.nom }" />" size="20"
-						maxlength="60" /> <span class="erreur">${ form.erreurs['nom'] }</span>
-				</p>
-			
-				<p>
-					<label for="passe">Mot de passe <span class="requis">*</span></label>
-					<input type="password" name="passe" id="passe" size="20"
-						maxlength="60" /> <span class="erreur">${ form.erreurs['passe'] }</span>
-				</p>
-			
-				<p>
-					<label for="passe_con">Confirmation du mot de passe <span
-						class="requis">*</span></label> <input type="password" name="passe_con"
-						id="passe_con" size="20" maxlength="60" />
-				</p>
-			
-				<p>
-					<label for="niveau">Niveau</label>
-					<select name="niveau" id="niveau">
-						<option value="6">6ème</option>
-						<option value="5">5ème</option>
-						<option value="4">4ème</option>
-						<option value="3">3ème</option>
-						<option value="2">2nde</option>
-						<option value="1">1ère</option>
-						<option value="tle">Terminale</option>
-					</select>
-				</p>
-			
-				<p>
-					<label for="departement">Département</label> <input type="text"
-						name="departement" id="departement"
-						value="<c:out value="${ utilisateur.departement }" />" size="20"
-						maxlength="60" />
-				</p>
-			
-				<p>
-					<label for="college">Collège</label> <input type="text" name="college"
-						id="college" value="<c:out value="${ utilisateur.college }" />"
-						size="20" maxlength="60" />
-				</p>
-			
-				<p>
-					<label for="matiere">Matière Enseignée <span class="requis">*</span></label> 
-					<input type="text"
-						name="matiere" id="matiere" value="<c:out value="${ utilisateur.matiere }" />" size="20" maxlength="60" />
-				</p>
-				
-				<p>
-					<button type="submit" class="sansLabel">M'inscrire</button>
-				</p>
-				
-				<span class="${ empty form.erreurs ? 'succes' : 'erreur' }">${ form.resultat }</span>
-			</fieldset>
-		</form>
-	</section>
+		<p>
+			<label for="passe_con">Confirmation du mot de passe <span
+				class="requis">*</span></label> <input type="password" name="passe_con"
+				id="passe_con" size="20" maxlength="60" />
+		</p>
+		
+		<p>
+			<label for="matiere">MatiÃ¨re EnseignÃ©e <span class="requis">*</span></label> 
+			<input type="text"
+				name="matiere" id="matiere" value="<c:out value="${ utilisateur.matiere }" />" size="20" maxlength="60" />
+		</p>
 	
-	<jsp:include page="footer.jsp"></jsp:include>
+		<p>
+			<label for="niveau">Niveau <span class="requis">*</span></label>
+			<select name="niveau" id="niveau">
+				<option value="6Ã¨me">6Ã¨me</option>
+				<option value="5Ã¨me">5Ã¨me</option>
+				<option value="4Ã¨me">4Ã¨me</option>
+				<option value="3Ã¨me">3Ã¨me</option>
+				<option value="2nde">2nde</option>
+				<option value="1Ã¨re">1Ã¨re</option>
+				<option value="Terminale">Terminale</option>
+			</select>
+		</p>
+	</fieldset>
+
+	<fieldset id="zone_facultative">
+		<legend>Accessoirement...</legend>
+		<p>
+			<label for="prenom">PrÃ©nom</label> <input
+				type="text" name="prenom" id="prenom"
+				value="<c:out value="${ utilisateur.prenom }" />" size="20"
+				maxlength="60" /> <span class="erreur">${ form.erreurs['prenom'] }</span>
+		</p>
+	
+		<p>
+			<label for="nom">Nom</label> <input
+				type="text" name="nom" id="nom"
+				value="<c:out value="${ utilisateur.nom }" />" size="20"
+				maxlength="60" /> <span class="erreur">${ form.erreurs['nom'] }</span>
+		</p>
+	
+		
+	
+		<p>
+			<label for="departement">DÃ©partement</label> <input type="text"
+				name="departement" id="departement"
+				value="<c:out value="${ utilisateur.departement }" />" size="20"
+				maxlength="60" />
+		</p>
+	
+		<p>
+			<label for="college">CollÃ¨ge</label> <input type="text" name="college"
+				id="college" value="<c:out value="${ utilisateur.college }" />"
+				size="20" maxlength="60" />
+		</p>
+	</fieldset>
+	
+	<p>
+		<button type="submit" class="sansLabel">M'inscrire</button>
+	</p>
+	
+	<span class="${ empty form.erreurs ? 'succes' : 'erreur' }">${ form.resultat }</span>
+</form>
+
+</body>
+</html>
