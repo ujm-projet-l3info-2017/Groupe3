@@ -58,7 +58,7 @@
 		<h1>Inscription</h1>
 		<div id="bloc_inscription">
 			<button id="button1" class="button" onClick="redirect_aventurier()">Aventurier
-				(eleve)</button>
+				(élève)</button>
 	
 			<button id="button2" class="button" onClick="redirect_maitre()">Maitre
 				(Guide)</button>

@@ -4,6 +4,8 @@
 body {
 	background-image: url("../ressources/learn_world.jpg");
 	background-repeat: repeat-x;	
+	overflow:auto;
+	
 }
 
 html, body {
@@ -40,9 +42,8 @@ footer {
 	padding: 15px;
 	background-color: rgba(0,0,0,0.8);
 	color: white;
+	text-align : center;
 }
-
-
 
 /* Conteneur de la page */
 section {
@@ -87,6 +88,15 @@ section {
 	border: 1px solid black;
 	margin: 1px;
 	padding: 10px;
+	box-shadow: 0px 0px 5px black;
+	/*background: linear-gradient(to bottom right,red 80%,white);*/
+}
+
+.bouton_rep:hover {
+	background-color: rgb(255,0,0);
+	cursor: pointer;
+	color: rgb(192,0,0);
+	border: 1px rgb(192,0,0) solid;
 }
 
 
@@ -97,6 +107,8 @@ section {
 #cble_connex:not(:checked)~#popup_connex {display: none;}
 
 /* Mise en forme du formulaire de connexion */
+
+
 
 #form_test {
 	position: absolute; /*Nécessaire pour utiliser z-index */
@@ -131,6 +143,7 @@ section {
 	margin: 30px auto 30px auto;
 	background-color: rgba(255,128,64,0.67);
 	padding: 15px;
+	box-shadow: 0px 0px 5px black;
 }
 
 #question h3 {
@@ -138,6 +151,8 @@ section {
 	background-color: red;
 	padding: 10px;
 	margin-bottom: 0;
+	box-shadow: 0px 0px 5px black;
+	background: linear-gradient(to bottom right,red 80%,white);
 }
 
 #question p {
@@ -146,7 +161,16 @@ section {
 	margin-top: 0;
 }
 
-#bouton_ins {
+#question p.bouton_rep:hover {
+	color: rgb(192,0,0);
+}
+
+#bouton_ins,#bouton_connex {
 	text-decoration: none;
 	margin: 0;
+}
+
+#question_jour {
+	box-shadow: 0px 0px 5px black;
+	background: linear-gradient(to bottom right,red 80%,white);
 }

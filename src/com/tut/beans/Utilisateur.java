@@ -1,45 +1,26 @@
 package com.tut.beans;
 
+import java.sql.Timestamp;
+
 public class Utilisateur {
-	private String nom;
-	private String prenom;
-	private String pseudo;
-	private String niveau;
-	private String departement;
+	private Long id;
 	private String email;
-	private String college;
-	private String matiere;
+	private String pseudo;
+	private String prenom;
+	private String nom;
 	private String motDePasse;
+	private String dpt;
+	private String college;
+	private String niveau;
+	private Timestamp date_inscription;
+	private String typeUser;
 	
-	public String getNom() {
-		return nom;
+	
+	public Long getId() {
+		return id;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getPrenom() {
-		return prenom;
-	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-	public String getPseudo() {
-		return pseudo;
-	}
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
-	public String getNiveau() {
-		return niveau;
-	}
-	public void setNiveau(String niveau) {
-		this.niveau = niveau;
-	}
-	public String getDepartement() {
-		return departement;
-	}
-	public void setDepartement(String departement) {
-		this.departement = departement;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getEmail() {
 		return email;
@@ -47,23 +28,59 @@ public class Utilisateur {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getCollege() {
-		return college;
+	public String getPseudo() {
+		return pseudo;
 	}
-	public void setCollege(String college) {
-		this.college = college;
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
-	public String getMatiere() {
-		return matiere;
+	public String getPrenom() {
+		return prenom;
 	}
-	public void setMatiere(String matiere) {
-		this.matiere = matiere;
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	public String getMotDePasse() {
 		return motDePasse;
 	}
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
+	}
+	public String getDpt() {
+		return dpt;
+	}
+	public void setDpt(String dpt) {
+		this.dpt = dpt;
+	}
+	public String getCollege() {
+		return college;
+	}
+	public void setCollege(String college) {
+		this.college = college;
+	}
+	public String getNiveau() {
+		return niveau;
+	}
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
+	}
+	public String getTypeUser() {
+		return typeUser;
+	}
+	public void setTypeUser(String typeUser) {
+		this.typeUser = typeUser;
+	}
+	public Timestamp getDate_inscription() {
+		return date_inscription;
+	}
+	public void setDate_inscription(Timestamp date_inscription) {
+		this.date_inscription = date_inscription;
 	}
 	
 }

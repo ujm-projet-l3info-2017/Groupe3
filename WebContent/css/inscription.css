@@ -1,29 +1,15 @@
 @CHARSET "UTF-8";
 
-form label {
-    float: left;
-    width: 205px;
-    /*margin: 3px 0px 0px 0px;*/
+fieldset{
+	border: 5px solid rgb(228,53,0);
+	background-color: #FF994A;
+	width: 400px;
+	margin: auto;
+	text-align: left;
+	border-radius: 8px;
 }
 
-form input {
-    margin: 3px 3px 0px 2px;
-    border: 1px #999 solid;
-}
-
-form input.sansLabel {
-    margin-left: 200px;
-}
-
-form .requis {
-    color: #c00;
-}
-
-form .erreur {
-	color: #900;
-}
-
-
-form .succes {
-	color: #090;
+section h1{
+	text-align : center;
+	font-size : 50px;
 }
