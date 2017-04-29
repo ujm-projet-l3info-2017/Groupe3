@@ -1,7 +1,5 @@
 package com.tut.beans;
 
-import java.sql.Timestamp;
-
 public class Utilisateur {
 	private Long id;
 	private String email;
@@ -12,7 +10,7 @@ public class Utilisateur {
 	private String dpt;
 	private String college;
 	private String niveau;
-	private Timestamp date_inscription;
+	private String date_inscription;
 	private String typeUser;
 	
 	
@@ -76,10 +74,10 @@ public class Utilisateur {
 	public void setTypeUser(String typeUser) {
 		this.typeUser = typeUser;
 	}
-	public Timestamp getDate_inscription() {
+	public String getDate_inscription() {
 		return date_inscription;
 	}
-	public void setDate_inscription(Timestamp date_inscription) {
+	public void setDate_inscription(String date_inscription) {
 		this.date_inscription = date_inscription;
 	}
 	
