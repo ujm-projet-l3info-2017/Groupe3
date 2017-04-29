@@ -8,12 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.tut.beans.Utilisateur;
 
 public class ConnexionForm {
-	private static final String CHAMP_PASS = "motdepasse";
 	private static final String CHAMP_IDF = "identifiant";
+	private static final String CHAMP_PASS = "motdepasse";
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<>();
-	
 	
 	public String getResultat() {
 		return resultat;
@@ -28,79 +27,70 @@ public class ConnexionForm {
 		this.erreurs = erreurs;
 	}
 	
-	
-	/* Fonctions de validation */
-	
-	private void validationIdentifiant(String identifiant) throws Exception {
-		if (identifiant == null)
-			throw new Exception( "Merci de saisir un pseudo ou une adresse mail." );
-		
-		if (!validationEmail(identifiant) && !validationPseudo(identifiant))
-			throw new Exception ( "Adresse mail ou pseudo invalde." );
-		
-	}
-
-	private boolean validationEmail(String email) {
-		if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-            return false;
-        }
-		
-		return true;
-		
-	}
-	
-	private boolean validationPseudo(String pseudo) {
-		if (pseudo != null && pseudo.length() < 3) {
-			return false;
-		}
-		
-		return true;
-		
-	}
-	
-	public void validationMotDePasse(String motDePasse) throws Exception {
-		
-	}
-	
-	
-	/* Récupération de la valeur d'un champ du formulaire grâce à l'objet requête */
-	private String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-		String value = request.getParameter(nomChamp);
-		
-		if (value == null || value.trim().length() == 0)
-			return null;
-		return value.trim();
-	}
-	
-	private void setErreur(String nomChamp, String message) {
-		erreurs.put(nomChamp, message);
-	}
-	
-	
-	/* Fonction de connexion */
-	public Utilisateur connecterUtilisateur (HttpServletRequest request) {
-		String identifiant = getValeurChamp(request, CHAMP_IDF);
+	public Utilisateur connecterUtilisateur( HttpServletRequest request ) {
+		/* RÃ©cupÃ©ration des champs du formulaire */
+		String email = getValeurChamp( request, CHAMP_IDF );
 		String motDePasse = getValeurChamp(request, CHAMP_PASS);
 		
 		Utilisateur utilisateur = new Utilisateur();
 		
 		try {
-			validationIdentifiant(identifiant);
+			validationEmail( email );
 		} catch (Exception e) {
-			setErreur (CHAMP_IDF, e.getMessage());
+			setErreur( CHAMP_IDF, e.getMessage());
 		}
-		utilisateur.setIdentifiant(identifiant);
+		utilisateur.setEmail(email);
 		
+		try {
+			validationMotDePasse( motDePasse );
+		} catch (Exception e) {
+			setErreur( CHAMP_PASS, e.getMessage());
+		}
 		utilisateur.setMotDePasse(motDePasse);
 		
 		if (erreurs.isEmpty()) {
-			resultat = "Bienvenue !";
+			resultat = "SuccÃ¨s de la connexion.";
 		}
 		else {
-			resultat = "Echec de la connexion.";
+			resultat = "Echec de la connexion";
 		}
 		
 		return utilisateur;
+	}
+	
+	
+	private void setErreur(String champ, String message) {
+		erreurs.put( champ, message );
+		
+	}
+	
+	private void validationMotDePasse(String motDePasse) throws Exception {
+		if ( motDePasse != null ) {
+            if ( motDePasse.length() < 3 ) {
+                throw new Exception( "Le mot de passe doit contenir au moins 3 caractÃ¨res." );
+            }
+        } else {
+            throw new Exception( "Merci de saisir votre mot de passe." );
+        }
+		
+	}
+	private void validationEmail(String email) throws Exception {
+		if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
+            throw new Exception( "Merci de saisir une adresse mail valide." );
+        }
+		
+		if (email == null)
+			throw new Exception("Vous devez saisir votre mail.");
+		
+	}
+	private String getValeurChamp(HttpServletRequest request, String nomChamp) {
+		String valeur = request.getParameter(nomChamp);
+		
+		if (valeur == null || valeur.trim().length() == 0) {
+			return null;
+		} else {
+			return valeur.trim();
+		}
 	}
 	
 }
