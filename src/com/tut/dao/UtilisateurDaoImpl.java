@@ -11,7 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 import com.tut.beans.Utilisateur;
 
 public class UtilisateurDaoImpl implements UtilisateurDAO {
-	private DAOFactory daoFactory;
+	protected DAOFactory daoFactory;
 	private static final String SQL_SELECT_PAR_EMAIL = "SELECT idUser, email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser date_inscription FROM Utilisateurs WHERE email = ?;";
 	private static final String SQL_INSERT = "INSERT INTO Utilisateurs (email, pseudo, nom, prenom, password, departement,"
@@ -91,7 +91,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 	public static Utilisateur map( ResultSet resultSet ) throws SQLException {
 		Utilisateur user = new Utilisateur();
 		
-		user.setId(resultSet.getLong("id"));
+		user.setId(resultSet.getLong("idUser"));
 		user.setPseudo(resultSet.getString("pseudo"));
 		user.setEmail(resultSet.getString("email"));
 		user.setMotDePasse(resultSet.getString("password"));
@@ -100,7 +100,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 		user.setDpt(resultSet.getString("departement"));
 		user.setCollege(resultSet.getString("college"));
 		user.setNiveau(resultSet.getString("niveau"));;
-		user.setDate_inscription(resultSet.getTimestamp("date_inscription"));
+		user.setDate_inscription(resultSet.getString("date_inscription"));
 		user.setTypeUser(resultSet.getString("typeUser"));
 		
 		return user;
