@@ -91,7 +91,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 	public static Utilisateur map( ResultSet resultSet ) throws SQLException {
 		Utilisateur user = new Utilisateur();
 		
-		user.setId(resultSet.getLong("id"));
+		user.setId(resultSet.getLong("idUser"));
 		user.setPseudo(resultSet.getString("pseudo"));
 		user.setEmail(resultSet.getString("email"));
 		user.setMotDePasse(resultSet.getString("password"));
