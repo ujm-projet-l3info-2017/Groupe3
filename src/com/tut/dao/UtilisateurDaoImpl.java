@@ -10,8 +10,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.tut.beans.Utilisateur;
 
-public abstract class UtilisateurDaoImpl implements UtilisateurDAO {
-	private DAOFactory daoFactory;
+public class UtilisateurDaoImpl implements UtilisateurDAO {
+	protected DAOFactory daoFactory;
 	private static final String SQL_SELECT_PAR_EMAIL = "SELECT idUser, email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser date_inscription FROM Utilisateurs WHERE email = ?;";
 	private static final String SQL_INSERT = "INSERT INTO Utilisateurs (email, pseudo, nom, prenom, password, departement,"
