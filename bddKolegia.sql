@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS EquipementBonus;
 DROP TABLE IF EXISTS EnInventaire;
 
 DROP TABLE IF EXISTS GuildePrincipale;
---DROP TABLE IF EXISTS GuildeSecondaire;
+DROP TABLE IF EXISTS GuildeSecondaire;
 
 
 CREATE TABLE Utilisateurs (
@@ -86,7 +86,7 @@ idQuestion INT ( 12 ) NOT NULL AUTO_INCREMENT,
 matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
 niveauDifficulte ENUM('Lapin','Gnome','Gobelin','Orc','Dragon','Démon'),
 typeExo ENUM('QCM','Résultat','Texte à trou','Dessin'),
-PRIMARY KEY ( idQuestion ),
+PRIMARY KEY ( idQuestion )
 )
 ENGINE=InnoDB;
 
@@ -118,11 +118,9 @@ idAssembleur INT ( 12 ),
 dateAssemblement DATETIME NOT NULL,
 PRIMARY KEY ( idExo, idAssembleur, dateAssemblement ),
 FOREIGN KEY ( idExo )
-	REFERENCES Exercices( idExo )
-	ON DELETE SET NULL,
+	REFERENCES Exercices( idExo ),
 FOREIGN KEY ( idAssembleur )
 	REFERENCES Maitres( idMaitre )
-	ON DELETE SET NULL
 )
 ENGINE=InnoDB;
 
@@ -135,14 +133,11 @@ idMaitre INT ( 12 ),
 dateCorrection DATETIME NOT NULL,
 PRIMARY KEY ( idEleve, idExo, idMaitre, dateCorrection ),
 FOREIGN KEY ( idEleve )
-	REFERENCES Aventuriers( idAventurier )
-	ON DELETE SET NULL,
+	REFERENCES Aventuriers( idAventurier ),
 FOREIGN KEY ( idExo )
-	REFERENCES Exercices( idExo )
-	ON DELETE SET NULL?
+	REFERENCES Exercices( idExo ),
 FOREIGN KEY ( idMaitre )
 	REFERENCES Maitres( idMaitre )
-	ON DELETE SET NULL
 )
 ENGINE=InnoDB;
 
@@ -180,7 +175,7 @@ ENGINE=InnoDB;
 
 CREATE TABLE Labelisation (
 idQuestion INT ( 12 ),
-idTag INT ( 12 )
+idTag INT ( 12 ),
 PRIMARY KEY ( idQuestion, idTag ),
 FOREIGN KEY ( idQuestion )
 	REFERENCES Questions( idQuestion ),
@@ -271,10 +266,8 @@ dateAdhesion DATETIME NOT NULL,
 rang VARCHAR ( 64 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idHero, dateAdhesion ),
 FOREIGN KEY ( idGuildeP )
-	REFERENCES GuildePrincipale( idGuildeP )
-	ON DELETE CASCADE,
+	REFERENCES GuildePrincipale( idGuildeP ),
 FOREIGN KEY ( idHero )
-	REFERENCES Aventuriers( idHero )
-	ON DELETE SET NULL
+	REFERENCES Aventuriers( idAventurier )
 )
 ENGINE=InnoDB;
