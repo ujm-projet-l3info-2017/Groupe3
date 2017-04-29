@@ -1,4 +1,4 @@
-	<jsp:include page="header.jsp">
+	<jsp:include page="partials/header.jsp">
 		<jsp:param value="Kolegia : Frémir de joie d'apprendre" name="nom"/>
 	</jsp:include>
 	
@@ -20,4 +20,4 @@
 		
 		<script type="text/javascript" src="js/reponse.js"></script>
 	
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="partials/footer.jsp"></jsp:include>

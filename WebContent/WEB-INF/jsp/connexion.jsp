@@ -1,6 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	
-	<jsp:include page="header.jsp">
+	<jsp:include page="partials/header.jsp">
 		<jsp:param value="Kolegia : Connexion" name="nom"/>
 	</jsp:include>
 	
@@ -36,4 +36,4 @@
             </fieldset>
         </form>
 
-    <jsp:include page="footer.jsp"></jsp:include>
+    <jsp:include page="partials/footer.jsp"></jsp:include>
