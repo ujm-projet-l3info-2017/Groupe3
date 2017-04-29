@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.tut.beans.Utilisateur;
 
-public class UtilisateurDaoImpl implements UtilisateurDAO {
+public abstract class UtilisateurDaoImpl implements UtilisateurDAO {
 	private DAOFactory daoFactory;
 	private static final String SQL_SELECT_PAR_EMAIL = "SELECT idUser, email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser date_inscription FROM Utilisateurs WHERE email = ?;";
