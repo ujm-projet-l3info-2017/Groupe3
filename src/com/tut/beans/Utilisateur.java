@@ -12,6 +12,7 @@ public class Utilisateur {
 	private String niveau;
 	private String date_inscription;
 	private String typeUser;
+	private String matiere;
 	
 	
 	public Long getId() {
@@ -79,6 +80,12 @@ public class Utilisateur {
 	}
 	public void setDate_inscription(String date_inscription) {
 		this.date_inscription = date_inscription;
+	}
+	public String getMatiere() {
+		return matiere;
+	}
+	public void setMatiere(String matiere) {
+		this.matiere = matiere;
 	}
 	
 }
