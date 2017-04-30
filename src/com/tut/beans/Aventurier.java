@@ -1,6 +1,7 @@
 package com.tut.beans;
 
 public class Aventurier extends Utilisateur {
+<<<<<<< HEAD
 	private Long idAventurier;
 	private int lvl;
 	private int expTotale;
@@ -9,10 +10,13 @@ public class Aventurier extends Utilisateur {
 	private int saphir;
 	private String classe;
 	
+=======
+>>>>>>> master
 	
 	public Aventurier() {
 		this.setTypeUser("Aventuriers");
 	}
+<<<<<<< HEAD
 
 
 	public Long getIdAventurier() {
@@ -83,5 +87,7 @@ public class Aventurier extends Utilisateur {
 	public void setSaphir(int saphir) {
 		this.saphir = saphir;
 	}
+=======
+>>>>>>> master
 	
 }

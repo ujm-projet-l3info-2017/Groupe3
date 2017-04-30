@@ -4,7 +4,14 @@ var bonneReponse = document.getElementById('bonne_reponse');
 for (var i = 0; i < boutonRep.length; i++) {
 	boutonRep[i].addEventListener("click", function (b) {
 		if (b == bonneReponse) {
+<<<<<<< HEAD
 			bonneReponse.style.backgroundColor = "rgb(10,255,0)";
+=======
+			setTimeOut(function() {
+				bonneReponse.style.backgroundColor = "rgb(10,255,0)";
+			}, 5000);
+			
+>>>>>>> master
 
 		}
 		else {

@@ -16,6 +16,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 			+ "college, niveau, typeUser date_inscription FROM Utilisateurs WHERE email = ?;";
 	private static final String SQL_INSERT = "INSERT INTO Utilisateurs (email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser, date_inscription) VALUES (?,?,?,?,?,?,?,?,?,NOW());";
+	private static final String SQL_INSERT_AVENTURIERS = "INSERT INTO Aventuriers (idAventurier) VALUES (?);";
 	
 	
 	
@@ -28,6 +29,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 	public void creer(Utilisateur utilisateur) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement2 = null;
 		ResultSet valeursAutoGenerees = null;
 		
 		try {
@@ -36,6 +38,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, utilisateur.getEmail(), utilisateur.getPseudo(),
 					utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getMotDePasse(), 
 					utilisateur.getDpt(), utilisateur.getCollege(), utilisateur.getNiveau(), utilisateur.getTypeUser());
+			
 			int statut = preparedStatement.executeUpdate();
 			
 			/* Analyse du statut retourn� par la requ�te d'insertion */
@@ -53,6 +56,15 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 				throw new DAOException("Echec lors de la création de l'utilisateur,"
 						+ "aucun ID auto-généré");
 			}
+			
+			preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());
+			
+			int statut2 = preparedStatement2.executeUpdate();
+			if (statut2 == 0) {
+				throw new DAOException("Echec de la création de l'aventurier,"
+						+ "aucune ligne ajoutée");
+			}
+			
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
@@ -100,7 +112,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 		user.setDpt(resultSet.getString("departement"));
 		user.setCollege(resultSet.getString("college"));
 		user.setNiveau(resultSet.getString("niveau"));;
-		user.setDate_inscription(resultSet.getTimestamp("date_inscription"));
+		user.setDate_inscription(resultSet.getString("date_inscription"));
 		user.setTypeUser(resultSet.getString("typeUser"));
 		
 		return user;
