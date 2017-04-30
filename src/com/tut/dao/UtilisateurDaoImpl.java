@@ -17,7 +17,7 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 	private static final String SQL_INSERT = "INSERT INTO Utilisateurs (email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser, date_inscription) VALUES (?,?,?,?,?,?,?,?,?,NOW());";
 	private static final String SQL_INSERT_AVENTURIERS = "INSERT INTO Aventuriers (idAventurier) VALUES (?);";
-	private static final String SQL_INSERT_MAITRES = "INSERT INTO Maitres (idMaitre, enseignement, lvl) VALUES (?,?,?);";
+	private static final String SQL_INSERT_MAITRES = "INSERT INTO Maitres (idMaitre, enseignement, lvl) VALUES (?,?,6);";
 	
 	
 	public UtilisateurDaoImpl( DAOFactory daoFactory ) {
@@ -57,10 +57,17 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 						+ "aucun ID auto-généré");
 			}
 			
-			preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());		
+			if ( utilisateur.getTypeUser() == "Maitres" ) {
+				preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_MAITRES, false, 
+						utilisateur.getId(), utilisateur.getMatiere());
+			} else {
+				preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());
+			}
+			
+			
 			int statut2 = preparedStatement2.executeUpdate();
 			if (statut2 == 0) {
-				throw new DAOException("Echec de la création de l'aventurier,"
+				throw new DAOException("Echec de la création de l'aventurier/maitre,"
 						+ "aucune ligne ajoutée");
 			}
 			
