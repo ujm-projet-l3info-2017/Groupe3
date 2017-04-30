@@ -38,9 +38,8 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 			preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true, utilisateur.getEmail(), utilisateur.getPseudo(),
 					utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getMotDePasse(), 
 					utilisateur.getDpt(), utilisateur.getCollege(), utilisateur.getNiveau(), utilisateur.getTypeUser());
-			preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());
+			
 			int statut = preparedStatement.executeUpdate();
-			int statut2 = preparedStatement2.executeUpdate();
 			
 			/* Analyse du statut retourn� par la requ�te d'insertion */
 			if (statut == 0) {
@@ -50,11 +49,6 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 			/* Récupération de l'id auto-généré par la requête d'insertion */
 			valeursAutoGenerees = preparedStatement.getGeneratedKeys();
 			
-			if (statut2 == 0) {
-				throw new DAOException("Echec de la création de l'aventurier,"
-						+ "aucune ligne ajoutée");
-			}
-			
 			if (valeursAutoGenerees.next()) {
 				/* Puis initialisation de la propri�t� id du bean Utilisateur */
 				utilisateur.setId(valeursAutoGenerees.getLong(1));
@@ -62,6 +56,15 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 				throw new DAOException("Echec lors de la création de l'utilisateur,"
 						+ "aucun ID auto-généré");
 			}
+			
+			preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());
+			
+			int statut2 = preparedStatement2.executeUpdate();
+			if (statut2 == 0) {
+				throw new DAOException("Echec de la création de l'aventurier,"
+						+ "aucune ligne ajoutée");
+			}
+			
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
