@@ -46,7 +46,9 @@ public class ConnexionForm {
 		
 		Utilisateur utilisateur = new Utilisateur();
 		
-		traiterEmail(email, utilisateur);
+		utilisateur = traiterEmail(email, utilisateur);
+		
+		System.out.println("Mot de passe : " + utilisateur.getMotDePasse());
 		
 		traiterMotDePasse(motDePasse, utilisateur);
 		
@@ -63,7 +65,7 @@ public class ConnexionForm {
 	
 	
 	
-	private void traiterMotDePasse(String motDePasse, Utilisateur utilisateur) {
+	private Utilisateur traiterMotDePasse(String motDePasse, Utilisateur utilisateur) {
 		try {
 			validationMotDePasse( motDePasse );
 		} catch (Exception e) {
@@ -79,11 +81,14 @@ public class ConnexionForm {
 				setErreur(CHAMP_PASS, "Mot de passe incorrect");
 			}
 		}
+		
+		
+		return utilisateur;
 	}
 	
 	
 	
-	private void traiterEmail(String email, Utilisateur utilisateur) {
+	private Utilisateur traiterEmail(String email, Utilisateur utilisateur) {
 		try {
 			validationEmail( email );
 		} catch (Exception e) {
@@ -96,6 +101,8 @@ public class ConnexionForm {
 			setErreur( CHAMP_IDF, "Utilisateur inconnu" );
 			System.out.println( "traiterEmail() --> Echec de l'inscription : utilisateur non stocké en base de données" );
 		}
+		
+		return utilisateur;
 	
 	}
 	
