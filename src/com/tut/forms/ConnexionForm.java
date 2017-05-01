@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import com.tut.beans.Utilisateur;
 import com.tut.dao.UtilisateurDAO;
@@ -20,6 +19,12 @@ public class ConnexionForm {
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<>();
+	
+	
+	public ConnexionForm(UtilisateurDAO utilisateurDAO) {
+		this.utilisateurDao = utilisateurDAO;
+	}
+	
 	
 	public String getResultat() {
 		return resultat;
@@ -46,12 +51,6 @@ public class ConnexionForm {
 		traiterMotDePasse(motDePasse, utilisateur);
 		
 		if (erreurs.isEmpty()) {
-			
-			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-			if (passwordEncryptor.checkPassword(motDePasse, utilisateur.getMotDePasse())) {
-				
-			}
-			
 			resultat = "Succès de la connexion.";
 		}
 		else {
@@ -91,7 +90,9 @@ public class ConnexionForm {
 			setErreur( CHAMP_IDF, e.getMessage());
 		}
 		
-		if ((utilisateur = utilisateurDao.trouver(email)) == null) {
+		utilisateur = utilisateurDao.trouver(email);
+		
+		if (utilisateur == null) {
 			setErreur( CHAMP_IDF, "Utilisateur inconnu" );
 			System.out.println( "traiterEmail() --> Echec de l'inscription : utilisateur non stocké en base de données" );
 		}
