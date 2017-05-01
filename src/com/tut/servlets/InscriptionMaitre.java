@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tut.beans.Utilisateur;
 import com.tut.dao.DAOFactory;
 import com.tut.dao.UtilisateurDAO;
-import com.tut.forms.FormMaitre;
+import com.tut.forms.FormInscription;
 
 /**
  * Servlet implementation class InscriptionMaitre
@@ -52,7 +52,7 @@ public class InscriptionMaitre extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FormMaitre form = new FormMaitre(utilisateurDao);
+		FormInscription form = new FormInscription(utilisateurDao);
 		request.setAttribute(ATT_USER_TYPE, new String("Maitres"));
 		Utilisateur utilisateur = form.inscrireUtilisateur(request);
 		
