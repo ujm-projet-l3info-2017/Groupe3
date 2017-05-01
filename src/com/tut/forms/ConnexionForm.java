@@ -5,14 +5,26 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
+
 import com.tut.beans.Utilisateur;
+import com.tut.dao.UtilisateurDAO;
 
 public class ConnexionForm {
 	private static final String CHAMP_IDF = "identifiant";
-	private static final String CHAMP_PASS = "motdepasse";
+	private static final String CHAMP_PASS = "motdepasse";	
+	
+	private static final String ALGO_CHIFFREMENT = "SHA-256";	
+	private UtilisateurDAO utilisateurDao;
 	
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<>();
+	
+	
+	public ConnexionForm(UtilisateurDAO utilisateurDAO) {
+		this.utilisateurDao = utilisateurDAO;
+	}
+	
 	
 	public String getResultat() {
 		return resultat;
@@ -34,19 +46,9 @@ public class ConnexionForm {
 		
 		Utilisateur utilisateur = new Utilisateur();
 		
-		try {
-			validationEmail( email );
-		} catch (Exception e) {
-			setErreur( CHAMP_IDF, e.getMessage());
-		}
-		utilisateur.setEmail(email);
+		traiterEmail(email, utilisateur);
 		
-		try {
-			validationMotDePasse( motDePasse );
-		} catch (Exception e) {
-			setErreur( CHAMP_PASS, e.getMessage());
-		}
-		utilisateur.setMotDePasse(motDePasse);
+		traiterMotDePasse(motDePasse, utilisateur);
 		
 		if (erreurs.isEmpty()) {
 			resultat = "Succès de la connexion.";
@@ -56,6 +58,45 @@ public class ConnexionForm {
 		}
 		
 		return utilisateur;
+	}
+	
+	
+	
+	
+	private void traiterMotDePasse(String motDePasse, Utilisateur utilisateur) {
+		try {
+			validationMotDePasse( motDePasse );
+		} catch (Exception e) {
+			setErreur( CHAMP_PASS, e.getMessage());
+		}
+		
+		if ( utilisateur != null ) {
+			ConfigurablePasswordEncryptor passwordEncryptor = new ConfigurablePasswordEncryptor();
+			passwordEncryptor.setAlgorithm(ALGO_CHIFFREMENT);
+			passwordEncryptor.setPlainDigest(false);
+			
+			if ( !(passwordEncryptor.checkPassword(motDePasse, utilisateur.getMotDePasse())) ) {
+				setErreur(CHAMP_PASS, "Mot de passe incorrect");
+			}
+		}
+	}
+	
+	
+	
+	private void traiterEmail(String email, Utilisateur utilisateur) {
+		try {
+			validationEmail( email );
+		} catch (Exception e) {
+			setErreur( CHAMP_IDF, e.getMessage());
+		}
+		
+		utilisateur = utilisateurDao.trouver(email);
+		
+		if (utilisateur == null) {
+			setErreur( CHAMP_IDF, "Utilisateur inconnu" );
+			System.out.println( "traiterEmail() --> Echec de l'inscription : utilisateur non stocké en base de données" );
+		}
+	
 	}
 	
 	
