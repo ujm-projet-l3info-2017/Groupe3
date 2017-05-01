@@ -22,6 +22,7 @@ public class Connexion extends HttpServlet {
 	public static final String ATT_USER_SESSION = "sessionUtilisateur";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
+	public static final String URL_REDIRECTION = "home";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,7 +56,9 @@ public class Connexion extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
 		
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+//		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
+		response.sendRedirect(URL_REDIRECTION);
 		
 	}
 
