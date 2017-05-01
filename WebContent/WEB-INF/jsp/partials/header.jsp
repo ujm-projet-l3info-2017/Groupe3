@@ -14,21 +14,23 @@
 	<div id="logo">
 		<h1>KOLEGIA</h1>
 	</div>
-
+	
 
 	<c:choose>
-		<c:when test="${ user == null }">
+		<c:when test="${ sessionScope.sessionUtilisateur == null }">
 			<%@include file="navigation_invite.jsp" %>
 		</c:when>
 		
 		<c:otherwise>
-			<c:when test="${ user.typeUser == 0 }">
-				<%@include file="navigation_eleve.jsp" %>
-			</c:when>
-			
-			<c:otherwise>
-				<%@include file="navigation_maitre.jsp" %>
-			</c:otherwise>
+			<c:choose>
+				<c:when test="${ sessionScope.sessionUtilisateur.typeUser == 'Aventuriers' }">
+					<%@include file="navigation_eleve.jsp" %>
+				</c:when>
+				
+				<c:otherwise>
+					<%@include file="navigation_maitre.jsp" %>
+				</c:otherwise>
+			</c:choose>
 		</c:otherwise>
 	</c:choose>
 	
