@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tut.beans.Utilisateur;
+import com.tut.dao.DAOFactory;
+import com.tut.dao.UtilisateurDAO;
 import com.tut.forms.ConnexionForm;
 
 /**
@@ -19,9 +21,18 @@ import com.tut.forms.ConnexionForm;
 public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/WEB-INF/jsp/connexion.jsp";
+	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER_SESSION = "sessionUtilisateur";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
+	public static final String URL_REDIRECTION = "home";
+	
+	private UtilisateurDAO utilisateurDao;
+	
+	public void init() {
+		this.utilisateurDao = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).
+				getUtilisateurDao();
+	}
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,7 +52,7 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnexionForm form = new ConnexionForm();
+		ConnexionForm form = new ConnexionForm(utilisateurDao);
 		
 		Utilisateur utilisateur = form.connecterUtilisateur(request);
 		
@@ -55,7 +66,9 @@ public class Connexion extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
 		
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+//		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
+		response.sendRedirect(URL_REDIRECTION);
 		
 	}
 
