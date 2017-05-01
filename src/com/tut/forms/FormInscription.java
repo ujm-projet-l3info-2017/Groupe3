@@ -21,6 +21,7 @@ public class FormInscription {
 	protected static final String CHAMP_NIV="niveau";
 	protected static final String CHAMP_DEP="departement";
 	protected static final String CHAMP_COLL="college";
+	protected static final String CHAMP_MATIERE="matiere";
 	
 	private static final String ALGO_CHIFFREMENT = "SHA-256";
 	
@@ -60,6 +61,7 @@ public class FormInscription {
 		String mdp = getValeurChamp(request, CHAMP_PASS);
 		String conf = getValeurChamp(request, CHAMP_CONF);
 		String niveau = getValeurChamp(request, CHAMP_NIV);
+		String matiere = getValeurChamp(request, CHAMP_MATIERE);
 		
 		Utilisateur utilisateur = new Utilisateur();
 		
@@ -73,6 +75,9 @@ public class FormInscription {
 			traiterPseudo(pseudo, utilisateur);
 			
 			traiterMotsDePasse(mdp, conf, utilisateur);
+			
+			if (matiere != null)
+				utilisateur.setMatiere(matiere);
 			
 			utilisateur.setCollege(college);
 			utilisateur.setDpt(departement);
