@@ -13,7 +13,7 @@ import com.tut.beans.Utilisateur;
 public class UtilisateurDaoImpl implements UtilisateurDAO {
 	protected DAOFactory daoFactory;
 	private static final String SQL_SELECT_PAR_EMAIL = "SELECT idUser, email, pseudo, nom, prenom, password, departement,"
-			+ "college, niveau, typeUser date_inscription FROM Utilisateurs WHERE email = ?;";
+			+ "college, niveau, typeUser, date_inscription FROM Utilisateurs WHERE email = ?;";
 	private static final String SQL_INSERT = "INSERT INTO Utilisateurs (email, pseudo, nom, prenom, password, departement,"
 			+ "college, niveau, typeUser, date_inscription) VALUES (?,?,?,?,?,?,?,?,?,NOW());";
 	private static final String SQL_INSERT_AVENTURIERS = "INSERT INTO Aventuriers (idAventurier) VALUES (?);";
@@ -57,10 +57,10 @@ public class UtilisateurDaoImpl implements UtilisateurDAO {
 						+ "aucun ID auto-généré");
 			}
 			
-			if ( utilisateur.getTypeUser() == "Maitres" ) {
+			if ( utilisateur.getTypeUser().equals("Maitres")) {
 				preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_MAITRES, false, 
 						utilisateur.getId(), utilisateur.getMatiere());
-			} else {
+			} else if (utilisateur.getTypeUser().equals("Aventuriers")) {
 				preparedStatement2 = initialisationRequetePreparee(connexion, SQL_INSERT_AVENTURIERS, false, utilisateur.getId());
 			}
 			
