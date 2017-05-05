@@ -25,8 +25,8 @@ pseudo VARCHAR( 60 ) NOT NULL,
 prenom VARCHAR( 32 ) NOT NULL,
 nom VARCHAR( 32 ) NOT NULL,
 password VARCHAR( 64 ) NOT NULL,
-departement VARCHAR( 64 ) NOT NULL,
-college VARCHAR( 64 ) NOT NULL,
+departement VARCHAR ( 64 ),
+college VARCHAR ( 64 ),
 niveau VARCHAR(9) NOT NULL,
 date_inscription DATETIME NOT NULL,
 typeUser VARCHAR(11) NOT NULL,
@@ -37,34 +37,39 @@ UNIQUE ( pseudo )
 ENGINE=InnoDB;
 
 CREATE TABLE Aventuriers (
-idHero INT( 12 ),
-lvl INT UNSIGNED NOT NULL,
-expTotale INT UNSIGNED NOT NULL,
-gold INT UNSIGNED NOT NULL,
-rubis INT UNSIGNED NOT NULL,
-saphir INT UNSIGNED NOT NULL,
+idAventurier INT ( 12 ),
+lvl INT UNSIGNED NOT NULL DEFAULT '0',
+expTotale INT UNSIGNED NOT NULL DEFAULT '0',
+gold INT UNSIGNED NOT NULL DEFAULT '0',
+rubis INT UNSIGNED NOT NULL DEFAULT '0',
+saphir INT UNSIGNED NOT NULL DEFAULT '0',
 classe ENUM('Guerrier','Mage','Guérisseur','Voleur'),
-armureCourante VARCHAR( 64 ) NOT NULL,
-accessoireTeteCourant VARCHAR( 64 ) NOT NULL,
-bouclierCourant VARCHAR( 64 ) NOT NULL,
-armeCourante VARCHAR( 64 ) NOT NULL,
+armureCourante VARCHAR ( 64 ),
+accessoireTeteCourant VARCHAR ( 64 ),
+bouclierCourant VARCHAR ( 64 ),
+armeCourante VARCHAR ( 64 ),
 genreHeros ENUM('Masculin','Féminin'),
 couleurPeau ENUM('Très claire','Claire','Intermédiaire','Méditerranéen','Foncée','Très foncée'),
 coupeCheveux ENUM('Blanc','Brun','Blond','Roux','Noir'),
 couleurShirt ENUM('Noire','Blanche','Bleue','Rouge','Orange','Jaune','Verte','Violette','Rose'),
-PRIMARY KEY ( idHero ),
-FOREIGN KEY ( idHero ) REFERENCES Utilisateurs( idUser )
+PRIMARY KEY ( idAventurier ),
+FOREIGN KEY ( idAventurier )
+	REFERENCES Utilisateurs( idUser )
+	ON UPDATE CASCADE ON DELETE CASCADE
 )
 ENGINE=InnoDB;
 
 CREATE TABLE Maitres (
-idMaitre INT( 12 ),
-enseignement VARCHAR( 32 ) NOT NULL,
-lvl INT UNSIGNED NOT NULL,
+idMaitre INT ( 12 )	,
+enseignement VARCHAR ( 32 ) NOT NULL,
+lvl INT UNSIGNED NOT NULL DEFAULT '0',
 PRIMARY KEY ( idMaitre ),
-FOREIGN KEY ( idMaitre ) REFERENCES Utilisateurs( idUser )
+FOREIGN KEY ( idMaitre )
+	REFERENCES Utilisateurs( idUser )
+	ON UPDATE CASCADE ON DELETE CASCADE
 )
 ENGINE=InnoDB;
+
 
 CREATE TABLE Exercices (
 idExo INT(24),
@@ -93,7 +98,115 @@ idQuestion INT ( 12 ),
 texteReponse VARCHAR ( 64 ) NOT NULL,
 statutReponse ENUM('valide','invalide'),
 PRIMARY KEY ( idReponse ),
-FOREIGN KEY ( idQuestion ) REFERENCES Questions( idQuestion )
+FOREIGN KEY ( idQuestion )
+	REFERENCES Questions( idQuestion )
+	ON DELETE CASCADE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE Tags (
+idTag INT ( 12 )  NOT NULL AUTO_INCREMENT,
+intituleTag VARCHAR ( 64 ) NOT NULL,
+PRIMARY KEY ( idTag )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE Labelisation (
+idQuestion INT ( 12 ),
+idTag INT ( 12 ),
+PRIMARY KEY ( idQuestion, idTag ),
+FOREIGN KEY ( idQuestion )
+	REFERENCES Questions( idQuestion ),
+FOREIGN KEY ( idTag )
+	REFERENCES Tags( idTag )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE Resolution (
+idResolveur INT ( 12 ),
+idExo INT ( 12 ),
+dateResolution DATETIME NOT NULL,
+noteAutomatique INT ( 12 ) NOT NULL,
+nbCatTF INT ( 12 ) NOT NULL DEFAULT '0', -- catégorie très facile
+nbCatF INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie facile
+nbCatN INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie normale
+nbCatM INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie moyenne
+nbCatD INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie difficile
+PRIMARY KEY ( idResolveur, idExo, dateResolution ),
+FOREIGN KEY ( idResolveur )
+	REFERENCES Aventuriers( idAventurier )
+	ON DELETE CASCADE,
+FOREIGN KEY ( idExo )
+	REFERENCES Exercices( idExo )
+	ON DELETE CASCADE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE Accomplissements (
+idAccomplissements INT ( 12 ) AUTO_INCREMENT,
+intituleAccomp VARCHAR ( 64 ) NOT NULL,
+categorieA VARCHAR ( 64 ) NOT NULL,
+PRIMARY KEY ( idAccomplissements )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE AvoirAcompli (
+idHero INT ( 12 ),
+idAccomplissements INT ( 12 ),
+dateAccomplissement DATETIME NOT NULL,
+PRIMARY KEY ( idHero, idAccomplissements, dateAccomplissement ),
+FOREIGN KEY ( idHero )
+	REFERENCES Aventuriers( idAventurier )
+	ON DELETE CASCADE,
+FOREIGN KEY ( idAccomplissements )
+	REFERENCES Accomplissements( idAccomplissements )
+	ON DELETE CASCADE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE EquipementBonus (
+idEB INT ( 12 ) AUTO_INCREMENT,
+intituleEB VARCHAR ( 64 ) NOT NULL,
+categorieEB VARCHAR ( 64 ) NOT NULL,
+PRIMARY KEY ( idEB )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE EnInventaire (
+idProprio INT ( 12 ),
+idObjet INT ( 12 ),
+limiteUsage INT ( 12 ) NOT NULL,
+PRIMARY KEY ( idProprio, idObjet, limiteUsage ),
+FOREIGN KEY ( idProprio )
+	REFERENCES Aventuriers( idAventurier )
+	ON DELETE CASCADE,
+FOREIGN KEY ( idObjet )
+	REFERENCES EquipementBonus( idEB )
+	ON DELETE CASCADE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE GuildePrincipale (
+idGuildeP INT ( 12 ) AUTO_INCREMENT,
+idMaitre INT ( 12 ),
+nomGuilde VARCHAR ( 64 ) NOT NULL,
+PRIMARY KEY ( idGuildeP, idMaitre ),
+FOREIGN KEY ( idMaitre )
+	REFERENCES Maitres( idMaitre )
+	ON DELETE CASCADE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE MembreGuildeP (
+idGuildeP INT ( 12 ),
+idHero INT ( 12 ),
+dateAdhesion DATETIME NOT NULL,
+rang VARCHAR ( 64 ) NOT NULL,
+PRIMARY KEY ( idGuildeP, idHero, dateAdhesion ),
+FOREIGN KEY ( idGuildeP )
+	REFERENCES GuildePrincipale( idGuildeP ),
+FOREIGN KEY ( idHero )
+	REFERENCES Aventuriers( idAventurier )
 )
 ENGINE=InnoDB;
 
