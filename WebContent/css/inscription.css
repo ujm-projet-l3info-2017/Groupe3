@@ -3,13 +3,103 @@
 fieldset{
 	border: 5px solid rgb(228,53,0);
 	background-color: #FF994A;
-	width: 400px;
+	width: 450px;
 	margin: auto;
 	text-align: left;
 	border-radius: 8px;
 }
 
-section h1{
-	text-align : center;
+input{
+	float : right;
+}
+select{
+	float : right;
+}
+
+ h1{
+ 	border: 5px solid rgb(228,53,0);
+	background-color: #FF994A;
+	text-align: center;
 	font-size : 50px;
+}
+
+.sansLabel{
+	display: block;
+	margin : auto;
+}
+
+
+label {
+	padding: 0.2em 0.5em;
+	color:brown;
+	font-size:90%;
+	text-align:right;
+	font-family:arial, sans-serif;
+	font-weight: bold;
+}
+ 
+legend{
+	border: 5px solid #CC3314;
+	background-color: #FF994A;
+	font-family:arial, sans-serif;
+	color: #D45500;
+	font-weight: bold;
+}
+
+/*Page inscription, choix aventurier ou maître*/
+.button {
+	padding: 15px 25px;
+	margin: 10px;
+	font-size: 24px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	color: #800000;
+	font-size : 30px;
+	/*background-color: #E46C0A;*/
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #999;
+	height: 200px;
+	width: 200px;
+}
+
+#button1{
+	background : url("../ressources/avent.png");
+	background-size: contain;
+}
+
+#button2{
+	background : url("../ressources/maitre.png");
+	background-size: contain;
+}
+
+.button:active {
+	background-color: #3e8e41;
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+}
+
+#bloc_inscription {
+	margin: auto;
+	margin: 30px auto auto auto;
+	text-align: center;
+}
+
+.result .erreur{
+	margin: auto;
+	color: red;
+	background-color: #FF994A;
+	text-align: center;
+	font-size : 40px;
+	width : 300px;
+}
+
+.result .succes{
+	margin: auto;
+	color: green;
+	background-color: #FF994A;
+	text-align: center;
+	font-size : 40px;
+	width : 300px;
 }
