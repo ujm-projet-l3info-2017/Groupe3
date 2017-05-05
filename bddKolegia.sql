@@ -38,11 +38,11 @@ ENGINE=InnoDB;
 
 CREATE TABLE Aventuriers (
 idAventurier INT ( 12 ),
-lvl INT UNSIGNED NOT NULL,
-expTotale INT UNSIGNED NOT NULL,
-gold INT UNSIGNED NOT NULL,
-rubis INT UNSIGNED NOT NULL,
-saphir INT UNSIGNED NOT NULL,
+lvl INT UNSIGNED NOT NULL DEFAULT '0',
+expTotale INT UNSIGNED NOT NULL DEFAULT '0',
+gold INT UNSIGNED NOT NULL DEFAULT '0',
+rubis INT UNSIGNED NOT NULL DEFAULT '0',
+saphir INT UNSIGNED NOT NULL DEFAULT '0',
 classe ENUM('Guerrier','Mage','Guérisseur','Voleur'),
 armureCourante VARCHAR ( 64 ),
 accessoireTeteCourant VARCHAR ( 64 ),
@@ -62,7 +62,7 @@ ENGINE=InnoDB;
 CREATE TABLE Maitres (
 idMaitre INT ( 12 )	,
 enseignement VARCHAR ( 32 ) NOT NULL,
-lvl INT UNSIGNED NOT NULL,
+lvl INT UNSIGNED NOT NULL DEFAULT '0',
 PRIMARY KEY ( idMaitre ),
 FOREIGN KEY ( idMaitre )
 	REFERENCES Utilisateurs( idUser )
@@ -127,11 +127,11 @@ idResolveur INT ( 12 ),
 idExo INT ( 12 ),
 dateResolution DATETIME NOT NULL,
 noteAutomatique INT ( 12 ) NOT NULL,
-nbCatTF INT ( 12 ), -- catégorie très facile
-nbCatF INT ( 12 ),	-- catégorie facile
-nbCatN INT ( 12 ),	-- catégorie normale
-nbCatM INT ( 12 ),	-- catégorie moyenne
-nbCatD INT ( 12 ),	-- catégorie difficile
+nbCatTF INT ( 12 ) NOT NULL DEFAULT '0', -- catégorie très facile
+nbCatF INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie facile
+nbCatN INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie normale
+nbCatM INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie moyenne
+nbCatD INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie difficile
 PRIMARY KEY ( idResolveur, idExo, dateResolution ),
 FOREIGN KEY ( idResolveur )
 	REFERENCES Aventuriers( idAventurier )
