@@ -55,7 +55,7 @@ public class Connexion extends HttpServlet {
 		ConnexionForm form = new ConnexionForm(utilisateurDao);
 		
 		Utilisateur utilisateur = form.connecterUtilisateur(request);
-		
+		//Aventurier aventurier = ;
 		HttpSession session = request.getSession();
 		
 		if (form.getErreurs().isEmpty())
