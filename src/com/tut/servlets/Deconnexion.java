@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/deconnexion")
 public class Deconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String URL_DIRECTION = "/WEB-INF/jsp/home.jsp";
+	public static final String URL_DIRECTION = "home";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,8 +31,8 @@ public class Deconnexion extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		//response.sendRedirect(URL_DIRECTION);
-		this.getServletContext().getRequestDispatcher( URL_DIRECTION ).forward(request, response);
+		response.sendRedirect(URL_DIRECTION);
+//		this.getServletContext().getRequestDispatcher( URL_DIRECTION ).forward(request, response);
 	}
 
 	/**
