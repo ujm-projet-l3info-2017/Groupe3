@@ -4,8 +4,7 @@
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
-  
   <listener>
-  	<listener-class>com.tut.config.InitialisationDaoFactory</listener-class>
+    <listener-class>com.tut.config.InitialisationDaoFactory</listener-class>
   </listener>
 </web-app>
