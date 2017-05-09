@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link type="text/css" rel="stylesheet" href="css/style.css" />
-		<link type="text/css" rel="stylesheet" href= "${ param.style }" />
+		<link type="text/css" rel="stylesheet" href= ${ param.style } />
 		<title>${ param.nom }</title>
 	</head>
 <body>
@@ -21,13 +21,10 @@
 			<div id="logo">
 				<button id="buttonLogo" onClick="redirect_home()"></button>
 			</div>
-			
-		
 			<c:choose>
 				<c:when test="${ sessionScope.sessionUtilisateur == null }">
 					<%@include file="navigation_invite.jsp" %>
 				</c:when>
-				
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${ sessionScope.sessionUtilisateur.typeUser == 'Aventuriers' }">
@@ -40,6 +37,4 @@
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
-		
 		</div>
-	

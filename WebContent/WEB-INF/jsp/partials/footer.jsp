@@ -1,3 +1,4 @@
+			<div class="spacer"></div>
 			<div class="footer">
 				<p id="a_propos">
 					KOLEGIA est l'initiative d'étudiants de licence
