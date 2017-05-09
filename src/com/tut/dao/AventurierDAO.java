@@ -12,7 +12,7 @@ import static com.tut.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 public class AventurierDAO extends UtilisateurDaoImpl {
 	private static final String SQL_SELECT_PAR_ID = "SELECT idAventurier, lvl, expTotale, "
-			+ "gold, rubis, saphir, classe WHERE id = ?";
+			+ "gold, rubis, saphir, classe WHERE idAventurier = ?";
 	
 	public AventurierDAO(DAOFactory daoFactory) {
 		super (daoFactory );
