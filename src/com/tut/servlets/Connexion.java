@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.tut.beans.Aventurier;
 import com.tut.beans.Utilisateur;
+import com.tut.dao.AventurierDAO;
 import com.tut.dao.DAOFactory;
 import com.tut.dao.UtilisateurDAO;
 import com.tut.forms.ConnexionForm;
@@ -23,15 +25,21 @@ public class Connexion extends HttpServlet {
 	public static final String VUE = "/WEB-INF/jsp/connexion.jsp";
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER_SESSION = "sessionUtilisateur";
+	public static final String ATT_AVENT_SESSION = "sessionAventurier";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String URL_REDIRECTION = "home";
 	
+	private DAOFactory daoFactory;
+	
 	private UtilisateurDAO utilisateurDao;
+	private AventurierDAO aventurierDao;
 	
 	public void init() {
-		this.utilisateurDao = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).
-				getUtilisateurDao();
+		this.daoFactory = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) );
+		this.utilisateurDao = daoFactory.getUtilisateurDao();
+		this.aventurierDao = daoFactory.getAventurierDao();
+		
 	}
        
     /**
@@ -55,11 +63,19 @@ public class Connexion extends HttpServlet {
 		ConnexionForm form = new ConnexionForm(utilisateurDao);
 		
 		Utilisateur utilisateur = form.connecterUtilisateur(request);
+		Aventurier aventurier = null;
+		
+		if (utilisateur.getTypeUser().equals("Aventuriers"))
+			aventurier = aventurierDao.trouver(utilisateur.getEmail());
 		
 		HttpSession session = request.getSession();
 		
-		if (form.getErreurs().isEmpty())
+		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_USER_SESSION, utilisateur);
+			session.setAttribute(ATT_AVENT_SESSION, aventurier);
+			
+			System.out.println("Aventurier de niveau " + aventurier.getLvl() + " récupéré avec succès");
+		}
 		else
 			session.setAttribute(ATT_USER_SESSION, null);
 		
