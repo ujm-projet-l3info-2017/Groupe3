@@ -68,7 +68,7 @@ public class DAOFactory {
 		
 		
 		DAOFactory instance = new DAOFactory(url, nomUtilisateur, motDePasse);
-		
+				
 		return instance;
 	}
 	
@@ -88,6 +88,10 @@ public class DAOFactory {
 	
 	public UtilisateurDAO getUtilisateurDao() {
 		return new UtilisateurDaoImpl( this );
+	}
+	
+	public AventurierDAO getAventurierDao() {
+		return new AventurierDAO(this);
 	}
 	
 }
