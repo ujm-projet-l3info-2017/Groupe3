@@ -5,27 +5,31 @@ body {
 	background-image: url("../ressources/learn_world.jpg");
 	background-repeat: repeat;	
 	overflow:auto;
-	
 }
 
 html, body {
 	padding: 0px;
 	margin: 0px;
+	height : 100%;
 }
 
 /* Ensemble du header, content, footer*/
 
 .wrapper {
-	min-height:100%;
-	/*position:relative;*/
+	height:100%;
 }
 
+.spacer{
+	clear:both;
+	height:50px;
+	display:block;
+}
 
 /* Style d'en-tete pour toutes les pages contenant un header */
 .header {
 	background: linear-gradient(to bottom, red, rgb(228,108,10));
 	opacity: 0.94;
-	height: 118px;
+	height: 100px;
 	margin: 0px;
 	display: flex;
 	justify-content: space-around;
@@ -39,8 +43,10 @@ nav {
 }
 
 .content{
-	padding:10px;
-	padding-bottom:100px; 
+	padding-bottom:100px;
+	width: 1000px;
+	height: 80%;
+	margin: 0 auto;
 	margin-bottom: 0px;
 }
 
@@ -62,13 +68,11 @@ nav {
 #buttonLogo{
 	background: url("../ressources/logoKolegia.png");
 	background-size: contain;
-	height: 118px;
-	width: 320px;
+	height: 100px;
+	width: 270px;
 	background-repeat : no-repeat;
 	position : absolute;
 	left : 0;
-	padding: 15px 25px;
-	margin: 10px;
 	border: none;
 	border-radius: 15px;
 	box-shadow: 0 9px #999;
@@ -83,8 +87,6 @@ section {
 	*/
 }
 
-
-
 /* Styles de classes */
 .bouton_menu {
 	border: 1px rgb(149,55,53) solid;
@@ -98,6 +100,8 @@ section {
 	user-select: none;
 	box-shadow: 0px 0px 5px black;
 	background: linear-gradient(to bottom right,red 80%,white);
+	text-decoration: none;
+	margin: 0;
 }
 
 .bouton_menu:hover {
@@ -202,4 +206,22 @@ section {
 #question_jour {
 	box-shadow: 0px 0px 5px black;
 	background: linear-gradient(to bottom right,red 80%,white);
+}
+
+.bouton_deco{
+	height : 50px;
+	border: 1px rgb(149,55,53) solid;
+	border-radius: 50px;
+	color: white;
+	padding: 5px;
+	/*Dégradé sur le bouton*/
+	background-color: rgb(192,0,0);
+	margin-right: 5px;
+	margin-left: 5px;
+	user-select: none;
+	box-shadow: 0px 0px 5px black;
+	background: linear-gradient(to bottom right,red 80%,white);	
+	text-align : center;
+	line-height : 50px;
+	text-decoration: none;
 }

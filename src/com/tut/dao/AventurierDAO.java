@@ -16,7 +16,8 @@ public class AventurierDAO extends UtilisateurDaoImpl {
 			+ "gold, rubis, saphir, classe FROM aventuriers WHERE idAventurier = ?";
 	
 	public AventurierDAO(DAOFactory daoFactory) {
-		super (daoFactory );
+		super ( daoFactory );
+
 	}
 	
 	/* Hérite des comportements de la methode de la classe mere

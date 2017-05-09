@@ -1,41 +1,32 @@
 package com.tut.servlets;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Deconnexion
+ * Servlet implementation class Inventaire
  */
-@WebServlet("/deconnexion")
-public class Deconnexion extends HttpServlet {
+@WebServlet("/Inventaire")
+public class Inventaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String URL_DIRECTION = "home";
+	public static final String VUE = "/WEB-INF/jsp/inventaire.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Deconnexion() {
+    public Inventaire() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		
-		response.sendRedirect(URL_DIRECTION);
-
-//		this.getServletContext().getRequestDispatcher( URL_DIRECTION ).forward(request, response);
-	}
-
+	
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+    	this.getServletContext().getRequestDispatcher( VUE ).forward(request, response);
+    }
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

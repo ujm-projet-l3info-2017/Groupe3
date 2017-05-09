@@ -48,7 +48,7 @@ public class ConnexionForm {
 		
 		utilisateur = traiterEmail(email, utilisateur);
 		
-		System.out.println("Mot de passe : " + utilisateur.getMotDePasse());
+//		System.out.println("Mot de passe : " + utilisateur.getMotDePasse());
 		
 		traiterMotDePasse(motDePasse, utilisateur);
 		

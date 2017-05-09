@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+#barrestatsE{
+	background-color:	#ff3300;
+	height :			150px;
+	width :				auto;
+}
+
+#mainE{
+	width :				100%;
+	height :			100%;
+}
+
+#menuE{
+	float :				left;
+	width :				15%;
+	background-color :	#cc4400;
+	height :			100%;
+}
+
+#contentE{
+	margin-left :		15%;
+	background-color :	#ffad33;
+	height :			100%;
+}
+
+.profile-section{
+	float : left;
+	height : 100%;
+	width : 150px;
+	background-color :	#cc4400;
+}
+
+#avatarE{
+	background : url("../ressources/adventurer.png");
+	background-size: contain;
+	background-color:	#ff3300;
+	width :				150px;
+	height :			150px;
+	float :				right;
+}
+
+.profile{
+	margin-left : 20px;
+	text-align : center;
+	width : 80%;
+	color : white;
+	font-weight : bold;
+	
+}
