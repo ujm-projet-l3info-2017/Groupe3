@@ -11,7 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import com.tut.beans.Aventurier;
 import com.tut.beans.Utilisateur;
+<<<<<<< HEAD
 import com.tut.dao.AventurierDAO;
+=======
+>>>>>>> 8287eef8bd8ddf3def5627baad2c1b5689fea00b
 import com.tut.dao.DAOFactory;
 import com.tut.dao.UtilisateurDAO;
 import com.tut.forms.ConnexionForm;
@@ -39,7 +42,6 @@ public class Connexion extends HttpServlet {
 		this.daoFactory = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) );
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 		this.aventurierDao = daoFactory.getAventurierDao();
-		
 	}
        
     /**

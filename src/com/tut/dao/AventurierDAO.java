@@ -17,6 +17,7 @@ public class AventurierDAO extends UtilisateurDaoImpl {
 	
 	public AventurierDAO(DAOFactory daoFactory) {
 		super ( daoFactory );
+
 	}
 	
 	/* Hérite des comportements de la methode de la classe mere
