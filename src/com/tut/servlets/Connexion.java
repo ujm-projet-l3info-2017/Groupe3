@@ -64,17 +64,18 @@ public class Connexion extends HttpServlet {
 		
 		Utilisateur utilisateur = form.connecterUtilisateur(request);
 		Aventurier aventurier = null;
-		
-		if (utilisateur.getTypeUser().equals("Aventuriers"))
-			aventurier = aventurierDao.trouver(utilisateur.getEmail());
-		
 		HttpSession session = request.getSession();
 		
-		if (form.getErreurs().isEmpty()) {
-			session.setAttribute(ATT_USER_SESSION, utilisateur);
+		if (utilisateur.getTypeUser().equals("Aventuriers")) {
+			aventurier = aventurierDao.trouver(utilisateur.getEmail());
 			session.setAttribute(ATT_AVENT_SESSION, aventurier);
 			
 			System.out.println("Aventurier de niveau " + aventurier.getLvl() + " récupéré avec succès");
+		}
+		
+		if (form.getErreurs().isEmpty()) {
+			session.setAttribute(ATT_USER_SESSION, utilisateur);
+		
 		}
 		else
 			session.setAttribute(ATT_USER_SESSION, null);
