@@ -2,7 +2,7 @@ package com.tut.beans;
 
 public class Maitre extends Utilisateur {
 	private String enseignement;
-	private String lvl;
+	private Integer lvl;
 	
 	public Maitre() {
 		this.setTypeUser("Maitres");
@@ -16,11 +16,11 @@ public class Maitre extends Utilisateur {
 		this.enseignement = enseignement;
 	}
 
-	public String getLvl() {
+	public Integer getLvl() {
 		return lvl;
 	}
 
-	public void setLvl(String lvl) {
+	public void setLvl(Integer lvl) {
 		this.lvl = lvl;
 	}
 
