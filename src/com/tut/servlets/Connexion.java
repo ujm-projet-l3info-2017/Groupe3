@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tut.beans.Aventurier;
+import com.tut.beans.Maitre;
 import com.tut.beans.Utilisateur;
 import com.tut.dao.AventurierDAO;
 import com.tut.dao.DAOFactory;
+import com.tut.dao.MaitreDAO;
 import com.tut.dao.UtilisateurDAO;
 import com.tut.forms.ConnexionForm;
 
@@ -29,16 +31,19 @@ public class Connexion extends HttpServlet {
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String URL_REDIRECTION = "home";
+	private static final String ATT_MAITRE_SESSION = "sessionMaitre";
 	
 	private DAOFactory daoFactory;
 	
 	private UtilisateurDAO utilisateurDao;
 	private AventurierDAO aventurierDao;
+	private MaitreDAO maitreDao;
 	
 	public void init() {
 		this.daoFactory = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) );
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 		this.aventurierDao = daoFactory.getAventurierDao();
+		maitreDao = new MaitreDAO(daoFactory);
 		
 	}
        
@@ -64,6 +69,7 @@ public class Connexion extends HttpServlet {
 		
 		Utilisateur utilisateur = form.connecterUtilisateur(request);
 		Aventurier aventurier = null;
+		Maitre maitre = null;
 		HttpSession session = request.getSession();
 		
 		if (utilisateur.getTypeUser().equals("Aventuriers")) {
@@ -71,6 +77,13 @@ public class Connexion extends HttpServlet {
 			session.setAttribute(ATT_AVENT_SESSION, aventurier);
 			
 			System.out.println("Aventurier de niveau " + aventurier.getLvl() + " récupéré avec succès");
+		}
+		else if (utilisateur.getTypeUser().equals("Maitres")) {
+			maitre = maitreDao.trouver(utilisateur.getEmail());
+			session.setAttribute(ATT_MAITRE_SESSION, maitre);
+			
+			System.out.println("M. "+utilisateur.getPseudo()+", prof de "+maitre.getEnseignement()+" a "
+					+ "été initialisé avec succès !");
 		}
 		
 		if (form.getErreurs().isEmpty()) {
