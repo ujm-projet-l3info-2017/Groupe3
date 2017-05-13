@@ -4,33 +4,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Ajout d'exercice</title>
+<title>Correction</title>
 <link rel="stylesheet" href="css/style2.css"/>
+
 <div class="navbar">
 	  <a href="coursMaitre.jsp">Liste des Cours</a>
 	  <a href="ajoutExercice.jsp">Ajouter un exercice</a>
 	  <a href="correctionExercice.jsp">Corriger un exercice</a>
-	  
-	</div>
+	  </div>
+	
 </head>
-	<body class="content">
-	<div class="header">
-    <h2 style="margin:5px">Ajout d'exercice</h2>
+<body class="content">
+<div class="header">
+    <h2 style="margin:5px">Correction</h2>
     </div>
-     <input  type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
+ <input  type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
 	<input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
 	<input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
-	<input type="text" value="titre de l'exercice..." style=" border: 2px solid black; width: 100%; padding: 10px; float: left;font-size: 16px;"/>
 	<div id="editeur"  contentEditable></div>
 	<button class="button" type = "submit">Ajouter</button>
-	</body>
-	<script  type="text/javascript">
-	function commande(nom, argument) {
-		  if (typeof argument === 'undefined') {
-		    argument = '';
-		  }
-		  // Exécuter la commande
-		  document.execCommand(nom, false, argument);
-		}
-</script>
+</body>
 </html>

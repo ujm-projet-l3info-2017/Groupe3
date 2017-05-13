@@ -1,4 +1,9 @@
-<!-- 
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Liste des cours</title>
 <link rel="stylesheet" href="css/style2.css"/>
 <style>
@@ -10,12 +15,11 @@ input {
   float: left;
   font-size: 16px;
 }
-</style>-->
-
-<div class="navbar">
+</style>
+<div class="navbar"/>
 	  <a href="coursMaitre.jsp">Liste des Cours</a>
 	  <a href="ajoutExercice.jsp">Ajouter un exercice</a>
-	  <a href="">Corriger un exercice</a>
+	  <a href="correctionExercice.jsp">Corriger un exercice</a>
 	  
 	</div>
 </head>
@@ -92,3 +96,6 @@ function nouveauElement() {
   }
 }
 </script>
+
+</body>
+</html>

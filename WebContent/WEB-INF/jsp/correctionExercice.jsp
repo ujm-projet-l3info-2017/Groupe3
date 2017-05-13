@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Correction d'exercice</title>
 <link rel="stylesheet" href="css/style2.css"/>
 <style>
 /* Style the input */
@@ -44,6 +45,25 @@ list.addEventListener('click', function(e) {
   }
 }, false);
 
+//ajout des boutton ajouter pour chaque item
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("Corriger");
+  span.className = "correct";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+//Click sur le button corriger pour corriger l'exercice
+var list = document.getElementsByClassName("correct");
+var i;
+for (i = 0; i < list.length; i++) {
+  list[i].onclick = function() {
+	  window.location = "correction.jsp";
+  }
+}
 </script>
 </body>
 </html>
