@@ -17,12 +17,15 @@
 	<div class="header">
     <h2 style="margin:5px">Ajout d'exercice</h2>
     </div>
-     <input  type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
-	<input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
-	<input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
-	<input type="text" value="titre de l'exercice..." style=" border: 2px solid black; width: 100%; padding: 10px; float: left;font-size: 16px;"/>
-	<div id="editeur"  contentEditable></div>
-	<button class="button" type = "submit">Ajouter</button>
+    
+    <form action = "/master">
+	     <input  type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
+		<input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
+		<input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
+		<input type="text" placeholder="titre de l'exercice..." style=" border: 2px solid black; width: 100%; padding: 10px; float: left;font-size: 16px;"/>
+		<div id="editeur"  contentEditable></div>
+		<button class="button" type = "submit">Ajouter</button>
+	</form>
 	</body>
 	<script  type="text/javascript">
 	function commande(nom, argument) {
