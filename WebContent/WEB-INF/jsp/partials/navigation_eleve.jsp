@@ -1,7 +1,3 @@
-<div class="profile-section">
-	<span class="profile-name">${ sessionScope.sessionUtilisateur.pseudo }</span>
-</div>
-
 <style>
 /* Dropdown Button */
 .dropbtn {
@@ -11,22 +7,23 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
+    z-index: 1;	
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
     position: relative;
     display: inline-block;
+    z-index: 1;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
     position: absolute;
+    z-index: 1;
     background-color: #e62e00;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
 }
 
 /* Links inside the dropdown */
@@ -62,12 +59,40 @@
 }
 </style>
 
+<script type="text/javascript">
+	function redirect_profil()
+	{
+		var url = "Inventaire";
+		window.location.assign(url);
+	}
+	function redirect_memo()
+	{
+		var url = "Inventaire";
+		window.location.assign(url);
+	}
+	function redirect_monde()
+	{
+		var url = "Inventaire";
+		window.location.assign(url);
+	}
+	function redirect_guilde()
+	{
+		var url = "Inventaire";
+		window.location.assign(url);
+	}
+	function redirect_inventaire()
+	{
+		var url = "Inventaire";
+		window.location.assign(url);
+	}
+</script>
+
 <nav>
 	<div class="dropdown">
-	  <button class="dropbtn">Mémo</button>
+	  <button class="dropbtn" onClick="redirect_profil()">Mon Coin</button>
 	  <div class="dropdown-content">
 	    <a href="#">Mon profil</a>
-		<a href="#">Modifier profil</a>
+		<a href="ModiProfilAventurier">Modifier profil</a>
 		<a href="#">Paramètres</a>
 		<a href="#">Modifier Compte</a>
 		<a href="#">Accomplissements</a>
@@ -76,14 +101,14 @@
 	  </div>
 	</div>
 	<div class="dropdown">
-	  <button class="dropbtn">Mémo</button>
+	  <button class="dropbtn" onClick="redirect_memo()">Mémo</button>
 	  <div class="dropdown-content">
 	    <a href="#">Recettes (cours)</a>
 	    <a href="#">Exercices suivis</a>
 	  </div>
 	</div>
 	<div class="dropdown">
-	  <button class="dropbtn">Kolegia</button>
+	  <button class="dropbtn" onClick="redirect_monde()">Kolegia</button>
 	  <div class="dropdown-content">
 	    <a href="#">Challenges Globaux</a>
 	    <a href="#">News</a>
@@ -92,14 +117,14 @@
 	  </div>
 	</div>
 	<div class="dropdown">
-	  <button class="dropbtn">Guilde</button>
+	  <button class="dropbtn" onClick="redirect_guilde()">Guilde</button>
 	  <div class="dropdown-content">
 	    <a href="#">Guilde Principale</a>
 	    <a href="#">Guilde Secondaire</a>
 	  </div>
 	</div>
 	<div class="dropdown">
-	  <button class="dropbtn"><a class="title" href="Inventaire">Inventaire</a></button>
+	  <button class="dropbtn" onClick="redirect_inventaire()">Inventaire</button>
 	  <div class="dropdown-content">
 	    <a href="Marche">Marché</a>
 	    <a href="Equipement">Équipement</a>
