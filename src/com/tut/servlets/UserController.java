@@ -1,6 +1,7 @@
 package com.tut.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +61,14 @@ public class UserController extends HttpServlet {
 			request.setAttribute(ATT_EXERCICE, exercice);
 			
 			this.getServletContext().getRequestDispatcher(VUE_DO_EXERCICE).forward(request, response);
+		}
+		
+		else if (request.getParameter("newQuest") != null) {
+			List<Exercice> list = (new ExerciceDAO(daoFactory)).getAllExercices();
+			int id = (int) (Math.random()*list.size()) + 1;
+		
+			response.sendRedirect("user?action=do_exercice&id_exo="+id);
+			
 		}
 		
 	}

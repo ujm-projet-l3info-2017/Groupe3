@@ -41,7 +41,7 @@
 					<hr>
 					<div class="options">
 						<a href="">Accès Carte</a><br>
-						<a href="">Quête au hasard</a>	
+						<a href="user?action=do_exercice&&id_exo=${ id_aleatoire }">Quête au hasard</a>
 					</div>
 				</div>
 				
