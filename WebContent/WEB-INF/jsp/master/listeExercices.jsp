@@ -1,54 +1,54 @@
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<jsp:include page="../partials/header.jsp">
-		<jsp:param value="Correction Exercices" name="nom"/>
-		<jsp:param value="navigation_maitre.jsp" name="nav"/>
-		<jsp:param value="css/home.css" name="style"/>
-	</jsp:include>
-	
-		<style>
-		/* Style the input */
-		input {
-		  border: none;
-		  width: 75%;
-		  padding: 10px;
-		  float: left;
-		  font-size: 16px;
-		}
-		</style>
-		
-		<script>
-			var list = document.querySelector('ul');
-			list.addEventListener('click', function(e) {
-			  if (e.target.tagName === 'LI') {
-				 //ici on va afficher le contenu de l'exercice
-			  }
-			}, false);
-		</script>
-		
-		<div class="content">	
-			<c:choose>
-				<c:when test="${ sessionScope.sessionUtilisateur.typeUser == 'Maitres' }">
-					<jsp:include page="../partials/structmaster.jsp"></jsp:include>
-						<div id="contentE">
-		
-							<div id="myDIV" style="margin:0">
-							  <h2 style="margin:0; padding-top : 50px;">Liste des exercices</h2>
-							</div>
-							
-							<ul id="liste">
-							  <li>Exercice1</li>
-							  <li>Exercice2</li>
-							  <li>Exercice3</li>
-							</ul>
-							
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<%@include file="../question.jsp" %>
-				</c:otherwise>
-			</c:choose>
-		</div>	
-		
-		<jsp:include page="../partials/footer.jsp"></jsp:include>
-			
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="css/style2.css"/>
+<style>
+/* Style the input */
+input {
+  border: none;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+</style>
+<div class="navbar">
+	  <a href="/master?action=cours">Liste des Cours</a>
+	  <a href="/master?action=add">Ajouter un exercice</a>
+<!-- 	  <a href="">Corriger un exercice</a> -->
+	  
+	</div>
+</head>
+<body class="content">
+
+
+<div id="myDIV" class="header">
+  <h2 style="margin:5px">Liste des exercices</h2>
+</div>
+
+<ul id="liste">
+  
+  <c:forEach items="${ exercices.listExercices }" var="exo">
+  	<li>
+  		${ exo.titreExo }
+  	</li>
+  </c:forEach>
+ 
+</ul>
+
+<script>
+var list = document.querySelector('ul');
+list.addEventListener('click', function(e) {
+  if (e.target.tagName === 'LI') {
+	 //ici on va afficher le contenu de l'exercice
+  }
+}, false);
+
+</script>
+</body>
+</html>

@@ -1,5 +1,8 @@
 package com.tut.dao;
 
+import static com.tut.dao.DAOUtilitaire.fermeturesSilencieuses;
+import static com.tut.dao.DAOUtilitaire.initialisationRequetePreparee;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,10 +10,9 @@ import java.util.List;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 import com.tut.beans.Exercice;
 import com.tut.beans.Maitre;
-
-import static com.tut.dao.DAOUtilitaire.*;
 
 public class ExerciceDAO {
 	
@@ -26,19 +28,28 @@ public class ExerciceDAO {
 		final String SELECT_ALL = "SELECT * FROM Exercices";
 		List<Exercice> list = new ArrayList<>();
 		Connection connexion = null;
-		PreparedStatement selection = null;
+		Statement selection = null;
 		ResultSet result = null;
 		Exercice exercice = new Exercice();
 		
 		try {
 			connexion = daoFactory.getConnection();
 			
-			selection = initialisationRequetePreparee(connexion, SELECT_ALL, false, (Object[]) null);
-			result = selection.executeQuery();
+			selection = (Statement) connexion.createStatement();
 			
+			result = selection.executeQuery(SELECT_ALL);
+			
+			System.out.println("Liste des exos");
 			while (result.next()) {
-				map(exercice, result);
+				System.out.println(result.getString("titreExo"));
+				exercice = map(exercice, result);
+				System.out.println(exercice.getTitreExo());
 				list.add(exercice);
+//				System.out.println(result.getString("titreExo"));
+			}
+			
+			for (Exercice e : list) {
+				System.out.println(e.getTitreExo());
 			}
 			
 			
@@ -56,8 +67,8 @@ public class ExerciceDAO {
 	/*Stocke un exercice dans la base de données*/
 	public void createExercice(Exercice exercice, Maitre maitre) {
 		
-		final String SQL_INSERT = "INSERT INTO Exercices(idExo, idMaitre, titreExo, content, matiere)"
-				+ "VALUES (?, ?, ?, ?, ?)";
+		final String SQL_INSERT = "INSERT INTO Exercices(idMaitre, titreExo, content, matiere)"
+				+ "VALUES (?, ?, ?, ?)";
 		Connection connexion = null;
 		PreparedStatement insertion = null;
 		int statut;
@@ -66,8 +77,8 @@ public class ExerciceDAO {
 		try {
 			
 			connexion = daoFactory.getConnection();
-			insertion = initialisationRequetePreparee(connexion, SQL_INSERT, false, exercice.getIdExo(),
-					maitre.getId(), exercice.getTitreExo(), exercice.getContent(), maitre.getMatiere());
+			insertion = initialisationRequetePreparee(connexion, SQL_INSERT, false, maitre.getId(), exercice.getTitreExo(), 
+					exercice.getContent(), maitre.getEnseignement());
 			statut = insertion.executeUpdate();
 			
 			if (statut == 0) {
@@ -107,6 +118,8 @@ public class ExerciceDAO {
 			
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(deletion, connexion);
 		}
 		
 		
@@ -130,6 +143,8 @@ public class ExerciceDAO {
 			if (statut == 0) {
 				throw new DAOException("Echec de la mise à jour des informations de l'exercice d'ID " + exercice.getIdExo() +
 						" de titre : " + exercice.getTitreExo());
+			} else {
+				System.out.println("Modification d'exercice effectuée avec succès !!!");
 			}
 			
 		} catch (SQLException e) {
@@ -139,12 +154,47 @@ public class ExerciceDAO {
 	}
 	
 	
-	private void map(Exercice exercice, ResultSet result) throws SQLException {
+	private Exercice map(Exercice exercice, ResultSet result) throws SQLException {
 		exercice.setCreator_id(result.getInt("idMaitre"));
 		exercice.setIdExo(result.getInt("idExo"));
 		exercice.setMatiere(result.getString("matiere"));
 		exercice.setTitreExo(result.getString("titreExo"));
 		
+		return exercice;
 	}
+	
+	
+	public Exercice getExerciceById(int id) {
+		
+		final String SQL_SELECT_BY_ID = "SELECT * FROM exercices WHERE idExo = ?";
+		Connection connexion = null;
+		PreparedStatement get = null;
+		ResultSet result = null;
+		Exercice exercice = new Exercice();
+		
+		try {
+			connexion = daoFactory.getConnection();
+			get = initialisationRequetePreparee(connexion, SQL_SELECT_BY_ID, true, new Integer(id));
+			result = get.executeQuery();
+			
+			if (result.next()) {
+				exercice.setIdExo(id);
+				exercice.setContent(result.getString("content"));
+				exercice.setCreator_id(result.getInt("idMaitre"));
+				exercice.setMatiere(result.getString("matiere"));
+				exercice.setTitreExo(result.getString("titreExo"));
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		
+		
+		return exercice;
+		
+		
+	}
+	
+	
 
 }

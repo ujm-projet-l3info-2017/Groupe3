@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+
+
+#container {
+	width: 80%;
+	min-height: 70%;
+	margin: auto;
+	text-align: center;
+}
+
+
+#titreExo {
+	font-size: 35px;
+	font-family: AlexBrush-Regular, "Times New Roman", Arial;
+	font-weight: bold;
+}
+
+
+#exercice {
+	width: 100%;
+	min-height: 300px;
+	border: 1px black solid;
+	border-radius: 5px;
+	background-color: #FFFFFF;
+	margin-bottom: 5px;
+	text-align: justify;
+	padding: 10px;
+	box-shadow: 2px 2px 3px black;
+}
+
+
+#zone_resolution {
+	width: 80%;
+	margin: auto;
+}
+
+#control_panel {
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+
+#control_panel a {
+	color: black;
+}
+
+
+#control_panel a:visited {
+	color: black;
+}
+
+
+#control_panel a:before {
+	content: url('../../ressources/edit.png');
+	padding-right: 1px;
+}
+
+
+
+@font-face {
+	font-family: 'AlexBrush-Regular';
+	src: url('../polices/AlexBrush-Regular.ttf');
+}

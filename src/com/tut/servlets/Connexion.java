@@ -27,11 +27,11 @@ public class Connexion extends HttpServlet {
 	public static final String VUE = "/WEB-INF/jsp/connexion.jsp";
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER_SESSION = "sessionUtilisateur";
-	public static final String ATT_AVENT_SESSION = "sessionAventurier";
+	public static final String ATT_AVENT_SESSION = "sessionAventurier"; 
+	private static final String ATT_MAITRE_SESSION = "sessionMaitre";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String URL_REDIRECTION = "home";
-	private static final String ATT_MAITRE_SESSION = "sessionMaitre";
 	
 	private DAOFactory daoFactory;
 	
@@ -74,12 +74,14 @@ public class Connexion extends HttpServlet {
 		
 		if (utilisateur.getTypeUser().equals("Aventuriers")) {
 			aventurier = aventurierDao.trouver(utilisateur.getEmail());
+			aventurier.setId(utilisateur.getId());
 			session.setAttribute(ATT_AVENT_SESSION, aventurier);
 			
 			System.out.println("Aventurier de niveau " + aventurier.getLvl() + " récupéré avec succès");
 		}
 		else if (utilisateur.getTypeUser().equals("Maitres")) {
 			maitre = maitreDao.trouver(utilisateur.getEmail());
+			maitre.setId(utilisateur.getId());
 			session.setAttribute(ATT_MAITRE_SESSION, maitre);
 			
 			System.out.println("M. "+utilisateur.getPseudo()+", prof de "+maitre.getEnseignement()+" a "
@@ -88,6 +90,7 @@ public class Connexion extends HttpServlet {
 		
 		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_USER_SESSION, utilisateur);
+			System.out.println(utilisateur);
 		
 		}
 		else
@@ -96,7 +99,7 @@ public class Connexion extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
 		
-//		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+//		this.getServletContext().getRequestDispatcher(URL_REDIRECTION).forward(request, response);
 		
 		response.sendRedirect(URL_REDIRECTION);
 		
