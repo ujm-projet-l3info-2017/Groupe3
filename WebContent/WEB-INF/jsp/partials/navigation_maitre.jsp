@@ -71,8 +71,7 @@
 	<div class="dropdown">
 	  <button class="dropbtn" onClick="redirect_profil()">Mon Coin</button>
 	  <div class="dropdown-content">
-	    <a href="#">Mon profil</a>
-		<a href="#">Modifier profil</a>
+	    <a href="ProfilM">Mon profil</a>
 		<a href="#">Paramètres</a>
 		<a href="#">Modifier Compte</a>
 		<a href="#">Accomplissements</a>

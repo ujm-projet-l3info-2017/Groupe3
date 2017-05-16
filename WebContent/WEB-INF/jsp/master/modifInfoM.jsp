@@ -1,7 +1,7 @@
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<jsp:include page="../partials/header.jsp">
 		<jsp:param value="Modifier ses informations" name="nom"/>
-		<jsp:param value="navigation_eleve.jsp" name="nav"/>
+		<jsp:param value="navigation_maitre.jsp" name="nav"/>
 		<jsp:param value="css/home.css" name="style"/>
 	</jsp:include>
 
@@ -28,7 +28,7 @@
 						<%@include file="../question.jsp" %>
 				</c:when>
 				<c:otherwise>
-					<jsp:include page="../partials/structure.jsp"></jsp:include>
+					<jsp:include page="../partials/structmaster.jsp"></jsp:include>
 						<div id="contentE">
 							<form id = "modif_prenom" method = "post" action = "">
 								<p>

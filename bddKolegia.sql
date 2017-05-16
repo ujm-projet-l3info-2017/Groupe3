@@ -72,9 +72,10 @@ ENGINE=InnoDB;
 
 
 CREATE TABLE Exercices (
-idExo INT,
+idExo INT NOT NULL AUTO_INCREMENT,
 idMaitre INT,
 titreExo VARCHAR (254) NOT NULL,
+content TEXT NOT NULL,
 matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
 PRIMARY KEY ( idExo ),
 FOREIGN KEY ( idMaitre ) REFERENCES Maitres( idMaitre ) 
@@ -82,7 +83,7 @@ FOREIGN KEY ( idMaitre ) REFERENCES Maitres( idMaitre )
 ENGINE=InnoDB;
 
 CREATE TABLE Questions (
-idQuestion INT ,
+idQuestion INT NOT NULL AUTO_INCREMENT,
 idMaitre INT ,
 matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
 niveauDifficulte ENUM('Lapin','Gnome','Gobelin','Orc','Dragon','Démon'),
@@ -93,9 +94,9 @@ FOREIGN KEY ( idMaitre ) REFERENCES Maitres( idMaitre )
 ENGINE=InnoDB;
 
 CREATE TABLE Reponses (
-idReponse INT ,
+idReponse INT NOT NULL AUTO_INCREMENT,
 idQuestion INT ,
-texteReponse VARCHAR ( 254 ) NOT NULL,
+texteReponse TEXT NOT NULL,
 statutReponse ENUM('valide','invalide'),
 PRIMARY KEY ( idReponse ),
 FOREIGN KEY ( idQuestion )
@@ -143,7 +144,7 @@ FOREIGN KEY ( idExo )
 ENGINE=InnoDB;
 
 CREATE TABLE Accomplissements (
-idAccomplissements INT AUTO_INCREMENT,
+idAccomplissements INT not null AUTO_INCREMENT,
 intituleAccomp VARCHAR ( 254 ) NOT NULL,
 categorieA VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idAccomplissements )
@@ -165,7 +166,7 @@ FOREIGN KEY ( idAccomplissements )
 ENGINE=InnoDB;
 
 CREATE TABLE EquipementBonus (
-idEB INT AUTO_INCREMENT,
+idEB INT not null AUTO_INCREMENT,
 intituleEB VARCHAR ( 254 ) NOT NULL,
 categorieEB VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idEB )
@@ -187,7 +188,7 @@ FOREIGN KEY ( idObjet )
 ENGINE=InnoDB;
 
 CREATE TABLE GuildePrincipale (
-idGuildeP INT AUTO_INCREMENT,
+idGuildeP INT not null AUTO_INCREMENT,
 idMaitre INT,
 nomGuilde VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idMaitre ),
@@ -198,7 +199,7 @@ FOREIGN KEY ( idMaitre )
 ENGINE=InnoDB;
 
 CREATE TABLE MembreGuildeP (
-idGuildeP INT ,
+idGuildeP INT not null,
 idHero INT ,
 dateAdhesion DATETIME NOT NULL,
 rang VARCHAR ( 254 ) NOT NULL,

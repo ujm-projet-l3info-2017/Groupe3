@@ -10,7 +10,7 @@
 		<div class="content">
 			<c:choose>
 				<c:when test="${ sessionScope.sessionUtilisateur.typeUser == 'Maitres' }">
-					<jsp:include page="../partials/structure.jsp"></jsp:include>
+					<jsp:include page="../partials/structmaster.jsp"></jsp:include>
 						<div id="contentE" style="padding-left: 50px;padding-right:50px;">
 								<h3 style="margin:0;padding-top : 50px;">Bonjour, Grand Maître !</h3>
 								<p>
@@ -19,7 +19,7 @@
 									Nom : ${ sessionScope.sessionUtilisateur.nom }<hr>
 									email : ${ sessionScope.sessionUtilisateur.email }<hr>
 								</p>
-								<a href="ModiProfilAventurier">Modifier profil</a>				
+								<a href="ModiProfilMaitre">Modifier profil</a>				
 	
 						</div>
 					</div>

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ModiProfilMaitre")
 public class ModiProfilMaitre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/jsp/modifInfo.jsp";
+	public static final String VUE = "/WEB-INF/jsp/master/modifInfoM.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
