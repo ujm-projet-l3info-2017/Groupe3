@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,9 +18,9 @@ input {
 }
 </style>
 <div class="navbar">
-	  <a href="coursMaitre.jsp">Liste des Cours</a>
-	  <a href="ajoutExercice.jsp">Ajouter un exercice</a>
-	  <a href="">Corriger un exercice</a>
+	  <a href="/master?action=cours">Liste des Cours</a>
+	  <a href="/master?action=add">Ajouter un exercice</a>
+<!-- 	  <a href="">Corriger un exercice</a> -->
 	  
 	</div>
 </head>
@@ -30,9 +32,12 @@ input {
 </div>
 
 <ul id="liste">
-  <li>Exercice1</li>
-  <li>Exercice2</li>
-  <li>Exercice3</li>
+  
+  <c:forEach items="${ exercices.listExercices }" var="exo">
+  	<li>
+  		${ exo.titreExo }
+  	</li>
+  </c:forEach>
  
 </ul>
 

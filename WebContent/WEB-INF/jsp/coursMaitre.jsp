@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!-- 
 <title>Liste des cours</title>
 <link rel="stylesheet" href="css/style2.css"/>
@@ -13,8 +16,8 @@ input {
 </style>-->
 
 <div class="navbar">
-	  <a href="coursMaitre.jsp">Liste des Cours</a>
-	  <a href="ajoutExercice.jsp">Ajouter un exercice</a>
+	  <a href="master.action=cours">Liste des Cours</a>
+	  <a href="master?action=add_exercice">Ajouter un exercice</a>
 	  <a href="">Corriger un exercice</a>
 	  
 	</div>
@@ -29,11 +32,18 @@ input {
 </div>
 
 <ul id="liste">
-  <li>Geometrie</li>
-  <li>Fonctions</li>
-  <li>Calcul</li>
+	
+	
  
 </ul>
+
+
+
+
+
+
+
+
 
 <script>
 // Create a "close" button and append it to each list item

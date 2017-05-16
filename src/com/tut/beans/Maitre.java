@@ -1,18 +1,28 @@
 package com.tut.beans;
 
 public class Maitre extends Utilisateur {
-	private String matiere;
+	private String enseignement;
+	private Integer lvl;
 	
 	public Maitre() {
 		this.setTypeUser("Maitres");
 	}
 
-	public String getMatiere() {
-		return matiere;
+	public String getEnseignement() {
+		return enseignement;
 	}
 
-	public void setMatiere(String matiere) {
-		this.matiere = matiere;
+	public void setEnseignement(String enseignement) {
+		this.enseignement = enseignement;
 	}
+
+	public Integer getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(Integer lvl) {
+		this.lvl = lvl;
+	}
+
 	
 }

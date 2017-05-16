@@ -203,14 +203,14 @@ public class FormInscription {
 	}
 	private void validationPrenom(String prenom) throws Exception {
 		if (prenom != null && prenom.length() < 3)
-			throw new Exception("Les pr�noms doivent faire 3 caract�res minimum.");
+			throw new Exception("Les pr�noms doivent faire 3 caractères minimum.");
 		else if (prenom == null)
 			throw new Exception("Merci de renseigner votre pr�nom.");
 		
 	}
 	private void validationNom(String nom) throws Exception {
 		if (nom != null && nom.length() < 3)
-			throw new Exception("Les noms doivent faire 3 caract�res minimum.");
+			throw new Exception("Les noms doivent faire 3 caractères minimum.");
 		else if (nom == null)
 			throw new Exception("Merci de renseigner votre nom.");
 		
