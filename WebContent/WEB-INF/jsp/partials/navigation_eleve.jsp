@@ -62,22 +62,22 @@
 <script type="text/javascript">
 	function redirect_profil()
 	{
-		var url = "Inventaire";
+		var url = "ProfilA";
 		window.location.assign(url);
 	}
 	function redirect_memo()
 	{
-		var url = "Inventaire";
+		var url = "memos";
 		window.location.assign(url);
 	}
 	function redirect_monde()
 	{
-		var url = "Inventaire";
+		var url = "";
 		window.location.assign(url);
 	}
 	function redirect_guilde()
 	{
-		var url = "Inventaire";
+		var url = "";
 		window.location.assign(url);
 	}
 	function redirect_inventaire()
@@ -91,8 +91,7 @@
 	<div class="dropdown">
 	  <button class="dropbtn" onClick="redirect_profil()">Mon Coin</button>
 	  <div class="dropdown-content">
-	    <a href="#">Mon profil</a>
-		<a href="ModiProfilAventurier">Modifier profil</a>
+	    <a href="ProfilA">Mon profil</a>
 		<a href="#">Paramètres</a>
 		<a href="#">Modifier Compte</a>
 		<a href="#">Accomplissements</a>

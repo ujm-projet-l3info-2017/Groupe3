@@ -18,7 +18,7 @@
 							<%@include file="home_eleve.jsp" %>
 						</c:when>
 						<c:otherwise>
-							<%@include file="coursMaitre.jsp" %>
+							<%@include file="home_master.jsp" %>
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String VUE_SHOW = "/WEB-INF/jsp/modifInfo.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -26,8 +28,11 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		if (request.getParameter("action").equals("show")) {
+			this.getServletContext().getRequestDispatcher(VUE_SHOW).forward(request, response);
+		}
+		
 	}
 
 	/**

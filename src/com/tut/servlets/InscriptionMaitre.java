@@ -20,7 +20,7 @@ import com.tut.forms.FormInscription;
 public class InscriptionMaitre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String VUE = "/WEB-INF/jsp/Inscription_maitre.jsp";
+	public static final String VUE = "/WEB-INF/jsp/master/Inscription_maitre.jsp";
 	public static final String ATT_FORM = "form";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_USER_TYPE = "type";

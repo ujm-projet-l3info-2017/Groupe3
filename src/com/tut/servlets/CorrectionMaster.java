@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ModiProfilAventurier
+ * Servlet implementation class CorrectionMaster
  */
-@WebServlet("/ModiProfilAventurier")
-public class ModiProfilAventurier extends HttpServlet {
+@WebServlet("/CorrectionMaster" )
+public class CorrectionMaster extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/WEB-INF/jsp/adventurer/modifInfo.jsp";
+	public static final String VUE = "/WEB-INF/jsp/master/correctionExercice.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModiProfilAventurier() {
+    public CorrectionMaster() {
         super();
     }
 

@@ -1,25 +1,5 @@
 @CHARSET "UTF-8";
 
-/*Toutes les informations générales relatives à l'utilisateur*/
-#barreProfil{
-	background-color:	#ff3300;
-	height :			150px;
-	width :				auto;
-}
-
-#avatarE{
-	background : url("../ressources/adventurer.png");
-	background-size: contain;
-	background-color:	#ff3300;
-	width :				150px;
-	height :			150px;
-	float :				left;
-}
-
-#statsUser{
-	margin-left : 150px;
-	height : 100%;
-}
 
 .profile-section{
 	float : left;
@@ -64,14 +44,13 @@
 
 .barreRessources{
 	padding-top : 50px;
-	padding-left: 50px;
 	/*background-color : green;*/
 }
 
 /*Contenu et Menu*/
 #mainE{
 	width :				100%;
-	height :			100%;
+	height:				100%;
 }
 
 #menuE{
@@ -87,6 +66,18 @@
 	height :			100%;
 }
 
+#avatarE{
+	background : url("../ressources/adventurer.png");
+	background-size: contain;
+	background-color:	#ff3300;
+	width :				150px;
+	height :			150px;
+}
+
+#statsUser{
+	margin-left : 150px;
+	height : 100%;
+}
 
 
 
