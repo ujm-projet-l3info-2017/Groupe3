@@ -62,7 +62,12 @@
 <script type="text/javascript">
 	function redirect_profil()
 	{
-		var url = "home";
+		var url = "ProfilM";
+		window.location.assign(url);
+	}
+	function redirect_exercice()
+	{
+		var url = "AjoutExo";
 		window.location.assign(url);
 	}
 </script>

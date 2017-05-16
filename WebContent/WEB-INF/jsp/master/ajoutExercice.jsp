@@ -12,8 +12,10 @@
 					<jsp:include page="../partials/structmaster.jsp"></jsp:include>
 						<div id="contentE" style="padding-left: 50px;padding-right:50px;">
 
-				  			  <h2 style="margin:0; padding-top:50px;">Ajout d'exercice</h2>
-				    
+				  			  <h2 style="margin:0; padding-top:100px;">Ajout d'exercice</h2>
+				    <br>
+				    <hr>
+				    <br>
 				    <form method="post" action = "master?new">
 				    
 				    	
