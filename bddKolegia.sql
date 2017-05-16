@@ -19,119 +19,119 @@ DROP TABLE IF EXISTS Accomplissements;
 DROP TABLE IF EXISTS Inventaire;
 
 CREATE TABLE Utilisateurs (
-idUser INT( 12 ) NOT NULL AUTO_INCREMENT ,
-email VARCHAR( 64 ) NOT NULL,
-pseudo VARCHAR( 60 ) NOT NULL,
-prenom VARCHAR( 32 ) NOT NULL,
-nom VARCHAR( 32 ) NOT NULL,
-password VARCHAR( 64 ) NOT NULL,
-departement VARCHAR ( 64 ),
-college VARCHAR ( 64 ),
-niveau VARCHAR(9) NOT NULL,
+idUser INT NOT NULL AUTO_INCREMENT ,
+email VARCHAR( 254 ) NOT NULL,
+pseudo VARCHAR( 254 ) NOT NULL,
+prenom VARCHAR( 254 ) NOT NULL,
+nom VARCHAR( 254 ) NOT NULL,
+password VARCHAR( 254 ) NOT NULL,
+departement VARCHAR ( 254 ),
+college VARCHAR ( 254 ),
+niveau VARCHAR(254) NOT NULL,
 date_inscription DATETIME NOT NULL,
-typeUser VARCHAR(11) NOT NULL,
+typeUser VARCHAR(254) NOT NULL,
 PRIMARY KEY ( idUser ),
 UNIQUE ( email ),
 UNIQUE ( pseudo )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE Aventuriers (
-idAventurier INT ( 12 ),
+idAventurier INT,
 lvl INT UNSIGNED NOT NULL DEFAULT '0',
 expTotale INT UNSIGNED NOT NULL DEFAULT '0',
 gold INT UNSIGNED NOT NULL DEFAULT '0',
 rubis INT UNSIGNED NOT NULL DEFAULT '0',
 saphir INT UNSIGNED NOT NULL DEFAULT '0',
-classe ENUM('Guerrier','Mage','Guérisseur','Voleur'),
-armureCourante VARCHAR ( 64 ),
-accessoireTeteCourant VARCHAR ( 64 ),
-bouclierCourant VARCHAR ( 64 ),
-armeCourante VARCHAR ( 64 ),
-genreHeros ENUM('Masculin','Féminin'),
-couleurPeau ENUM('Très claire','Claire','Intermédiaire','Méditerranéen','Foncée','Très foncée'),
-coupeCheveux ENUM('Blanc','Brun','Blond','Roux','Noir'),
-couleurShirt ENUM('Noire','Blanche','Bleue','Rouge','Orange','Jaune','Verte','Violette','Rose'),
+classe ENUM('Guerrier','Mage','Guérisseur','Voleur') DEFAULT NULL,
+armureCourante VARCHAR ( 254 ) DEFAULT NULL,
+accessoireTeteCourant VARCHAR ( 254 ) DEFAULT NULL,
+bouclierCourant VARCHAR ( 254 ) DEFAULT NULL,
+armeCourante VARCHAR ( 254 ) DEFAULT NULL,
+genreHeros ENUM('Masculin','Féminin') DEFAULT NULL,
+couleurPeau ENUM('Très claire','Claire','Intermédiaire','Méditerranéen','Foncée','Très foncée') DEFAULT NULL,
+coupeCheveux ENUM('Blanc','Brun','Blond','Roux','Noir') DEFAULT NULL,
+couleurShirt ENUM('Noire','Blanche','Bleue','Rouge','Orange','Jaune','Verte','Violette','Rose') DEFAULT NULL,
 PRIMARY KEY ( idAventurier ),
 FOREIGN KEY ( idAventurier )
 	REFERENCES Utilisateurs( idUser )
 	ON UPDATE CASCADE ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Maitres (
-idMaitre INT ( 12 )	,
-enseignement VARCHAR ( 32 ) NOT NULL,
+idMaitre INT NOT NULL,
+enseignement VARCHAR ( 254 ) NOT NULL,
 lvl INT UNSIGNED NOT NULL DEFAULT '0',
 PRIMARY KEY ( idMaitre ),
 FOREIGN KEY ( idMaitre )
 	REFERENCES Utilisateurs( idUser )
 	ON UPDATE CASCADE ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE Exercices (
-idExo INT(24),
-idMaitre INT( 12 ),
-titreExo VARCHAR( 64 ) NOT NULL,
-matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
+idExo INT NOT NULL,
+idMaitre INT NOT NULL,
+titreExo VARCHAR (254) NOT NULL,
+matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie') DEFAULT NULL,
 PRIMARY KEY ( idExo ),
 FOREIGN KEY ( idMaitre ) REFERENCES Maitres( idMaitre ) 
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Questions (
-idQuestion INT ( 12 ),
-idMaitre INT ( 12 ),
-matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie'),
-niveauDifficulte ENUM('Lapin','Gnome','Gobelin','Orc','Dragon','Démon'),
-typeExo ENUM('QCM','Résultat','Texte à trou','Dessin'),
+idQuestion INT NOT NULL,
+idMaitre INT NOT NULL,
+matiere ENUM('Maths','Français','Histoire','Géographie','Physique','Chimie') DEFAULT NULL,
+niveauDifficulte ENUM('Lapin','Gnome','Gobelin','Orc','Dragon','Démon') DEFAULT NULL,
+typeExo ENUM('QCM','Résultat','Texte à trou','Dessin') DEFAULT NULL,
 PRIMARY KEY ( idQuestion ),
 FOREIGN KEY ( idMaitre ) REFERENCES Maitres( idMaitre )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE Reponses (
-idReponse INT ( 12 ),
-idQuestion INT ( 12 ),
-texteReponse VARCHAR ( 64 ) NOT NULL,
+idReponse INT ,
+idQuestion INT ,
+texteReponse LONGTEXT NOT NULL,
 statutReponse ENUM('valide','invalide'),
 PRIMARY KEY ( idReponse ),
 FOREIGN KEY ( idQuestion )
 	REFERENCES Questions( idQuestion )
 	ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Tags (
-idTag INT ( 12 )  NOT NULL AUTO_INCREMENT,
-intituleTag VARCHAR ( 64 ) NOT NULL,
+idTag INT   NOT NULL AUTO_INCREMENT,
+intituleTag VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idTag )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Labelisation (
-idQuestion INT ( 12 ),
-idTag INT ( 12 ),
+idQuestion INT NOT NULL,
+idTag INT NOT NULL,
 PRIMARY KEY ( idQuestion, idTag ),
 FOREIGN KEY ( idQuestion )
 	REFERENCES Questions( idQuestion ),
 FOREIGN KEY ( idTag )
 	REFERENCES Tags( idTag )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Resolution (
-idResolveur INT ( 12 ),
-idExo INT ( 12 ),
+idResolveur INT NOT NULL,
+idExo INT NOT NULL,
 dateResolution DATETIME NOT NULL,
-noteAutomatique INT ( 12 ) NOT NULL,
-nbCatTF INT ( 12 ) NOT NULL DEFAULT '0', -- catégorie très facile
-nbCatF INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie facile
-nbCatN INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie normale
-nbCatM INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie moyenne
-nbCatD INT ( 12 ) NOT NULL DEFAULT '0',	-- catégorie difficile
+noteAutomatique INT NOT NULL,
+nbCatTF INT NOT NULL DEFAULT '0', -- catégorie très facile
+nbCatF INT NOT NULL DEFAULT '0',	-- catégorie facile
+nbCatN INT NOT NULL DEFAULT '0',	-- catégorie normale
+nbCatM INT NOT NULL DEFAULT '0',	-- catégorie moyenne
+nbCatD INT NOT NULL DEFAULT '0',	-- catégorie difficile
 PRIMARY KEY ( idResolveur, idExo, dateResolution ),
 FOREIGN KEY ( idResolveur )
 	REFERENCES Aventuriers( idAventurier )
@@ -140,19 +140,19 @@ FOREIGN KEY ( idExo )
 	REFERENCES Exercices( idExo )
 	ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Accomplissements (
-idAccomplissements INT ( 12 ) AUTO_INCREMENT,
-intituleAccomp VARCHAR ( 64 ) NOT NULL,
-categorieA VARCHAR ( 64 ) NOT NULL,
+idAccomplissements INT AUTO_INCREMENT,
+intituleAccomp VARCHAR ( 254 ) NOT NULL,
+categorieA VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idAccomplissements )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE AvoirAcompli (
-idHero INT ( 12 ),
-idAccomplissements INT ( 12 ),
+idHero INT NOT NULL,
+idAccomplissements INT NOT NULL,
 dateAccomplissement DATETIME NOT NULL,
 PRIMARY KEY ( idHero, idAccomplissements, dateAccomplissement ),
 FOREIGN KEY ( idHero )
@@ -162,20 +162,20 @@ FOREIGN KEY ( idAccomplissements )
 	REFERENCES Accomplissements( idAccomplissements )
 	ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE EquipementBonus (
-idEB INT ( 12 ) AUTO_INCREMENT,
-intituleEB VARCHAR ( 64 ) NOT NULL,
-categorieEB VARCHAR ( 64 ) NOT NULL,
+idEB INT NOT NULL AUTO_INCREMENT,
+intituleEB VARCHAR ( 254 ) NOT NULL,
+categorieEB VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idEB )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE EnInventaire (
-idProprio INT ( 12 ),
-idObjet INT ( 12 ),
-limiteUsage INT ( 12 ) NOT NULL,
+idProprio INT NOT NULL,
+idObjet INT NOT NULL,
+limiteUsage INT NOT NULL,
 PRIMARY KEY ( idProprio, idObjet, limiteUsage ),
 FOREIGN KEY ( idProprio )
 	REFERENCES Aventuriers( idAventurier )
@@ -184,29 +184,29 @@ FOREIGN KEY ( idObjet )
 	REFERENCES EquipementBonus( idEB )
 	ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE GuildePrincipale (
-idGuildeP INT ( 12 ) AUTO_INCREMENT,
-idMaitre INT ( 12 ),
-nomGuilde VARCHAR ( 64 ) NOT NULL,
+idGuildeP INT NOT NULL AUTO_INCREMENT,
+idMaitre INT NOT NULL,
+nomGuilde VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idMaitre ),
 FOREIGN KEY ( idMaitre )
 	REFERENCES Maitres( idMaitre )
 	ON DELETE CASCADE
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE MembreGuildeP (
-idGuildeP INT ( 12 ),
-idHero INT ( 12 ),
+idGuildeP INT NOT NULL,
+idHero INT NOT NULL,
 dateAdhesion DATETIME NOT NULL,
-rang VARCHAR ( 64 ) NOT NULL,
+rang VARCHAR ( 254 ) NOT NULL,
 PRIMARY KEY ( idGuildeP, idHero, dateAdhesion ),
 FOREIGN KEY ( idGuildeP )
 	REFERENCES GuildePrincipale( idGuildeP ),
 FOREIGN KEY ( idHero )
 	REFERENCES Aventuriers( idAventurier )
 )
-ENGINE=InnoDB;
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
