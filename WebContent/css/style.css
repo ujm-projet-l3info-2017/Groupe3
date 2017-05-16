@@ -2,7 +2,7 @@
 
 /* Elements de base de la page */
 body {
-	background-image: url("../ressources/learn_world.jpg");
+	background-image: url("../ressources/site_background.jpg");
 	background-repeat: repeat;	
 	overflow:auto;
 }

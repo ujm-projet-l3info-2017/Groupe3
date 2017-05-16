@@ -21,6 +21,7 @@ public class MaitreDAO extends UtilisateurDaoImpl {
 	
 	
 	public Maitre trouver(String email) {
+		System.out.println("In MaitreTrouver");
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -53,4 +54,5 @@ public class MaitreDAO extends UtilisateurDaoImpl {
 		maitre.setEnseignement(result.getString("enseignement"));
 	}
 
+	
 }

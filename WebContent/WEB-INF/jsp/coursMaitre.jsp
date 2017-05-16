@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
+<!-- 
 <title>Liste des cours</title>
 <link rel="stylesheet" href="css/style2.css"/>
 <style>
@@ -15,11 +13,12 @@ input {
   float: left;
   font-size: 16px;
 }
-</style>
-<div class="navbar"/>
-	  <a href="coursMaitre.jsp">Liste des Cours</a>
-	  <a href="ajoutExercice.jsp">Ajouter un exercice</a>
-	  <a href="correctionExercice.jsp">Corriger un exercice</a>
+</style>-->
+
+<div class="navbar">
+	  <a href="master.action=cours">Liste des Cours</a>
+	  <a href="master?action=add_exercice">Ajouter un exercice</a>
+	  <a href="">Corriger un exercice</a>
 	  
 	</div>
 </head>
@@ -33,11 +32,18 @@ input {
 </div>
 
 <ul id="liste">
-  <li>Geometrie</li>
-  <li>Fonctions</li>
-  <li>Calcul</li>
+	
+	
  
 </ul>
+
+
+
+
+
+
+
+
 
 <script>
 // Create a "close" button and append it to each list item
@@ -96,6 +102,3 @@ function nouveauElement() {
   }
 }
 </script>
-
-</body>
-</html>
